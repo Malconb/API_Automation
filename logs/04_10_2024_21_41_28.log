@@ -1,0 +1,13 @@
+2024-04-10 21:42:03,672 UTC DEBUG    test_labels      labels: [{'id': '66173c664ab3c5aadb237309', 'idBoard': '660a22a04497144c6200e487', 'name': 'Create a label from confTest', 'color': 'blue', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c10', 'idBoard': '660a22a04497144c6200e487', 'name': 'To Do', 'color': 'green', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c12', 'idBoard': '660a22a04497144c6200e487', 'name': 'Warning', 'color': 'orange', 'uses': 0}, {'id': '66160a2a3c267a9d6458b22d', 'idBoard': '660a22a04497144c6200e487', 'name': 'Succeeded', 'color': 'purple', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c13', 'idBoard': '660a22a04497144c6200e487', 'name': 'Error', 'color': 'red', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c11', 'idBoard': '660a22a04497144c6200e487', 'name': 'In progress', 'color': 'yellow', 'uses': 0}]
+2024-04-10 21:43:14,334 UTC DEBUG    test_labels      labels 66173c664ab3c5aadb237309
+2024-04-10 21:43:43,233 UTC INFO     test_labels      Test Get labels from a board
+2024-04-10 21:43:43,608 UTC INFO     test_labels      Test Get an specific label from a board
+2024-04-10 21:43:43,677 UTC INFO     test_labels      Test Create a label for a board
+2024-04-10 21:43:43,734 UTC INFO     conftest         Test Create a label for a board from conftest
+2024-04-10 21:43:44,479 UTC DEBUG    conftest         Response to CREATE a list Json: {'id': '66173c664ab3c5aadb237309', 'idBoard': '660a22a04497144c6200e487', 'name': 'Create a label from confTest', 'color': 'blue', 'uses': 0, 'limits': {}}
+2024-04-10 21:43:44,482 UTC DEBUG    conftest         Status Code: 200
+2024-04-10 21:43:44,491 UTC INFO     test_labels      Test Update a label from a board
+2024-04-10 21:43:44,539 UTC INFO     conftest         Test Create a label for a board from conftest
+2024-04-10 21:43:45,218 UTC DEBUG    conftest         Response to CREATE a list Json: {'id': '66173c664ab3c5aadb237309', 'idBoard': '660a22a04497144c6200e487', 'name': 'Create a label from confTest', 'color': 'blue', 'uses': 0, 'limits': {}}
+2024-04-10 21:43:45,224 UTC DEBUG    conftest         Status Code: 200
+2024-04-10 21:43:45,241 UTC INFO     test_labels      Test Delete a label from a board

@@ -1,0 +1,5 @@
+2024-04-10 21:10:51,343 UTC DEBUG    test_labels      labels: [{'id': '660a22a0bf92ddda4f371c10', 'idBoard': '660a22a04497144c6200e487', 'name': 'To Do', 'color': 'green', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c12', 'idBoard': '660a22a04497144c6200e487', 'name': 'Warning', 'color': 'orange', 'uses': 0}, {'id': '66160a2a3c267a9d6458b22d', 'idBoard': '660a22a04497144c6200e487', 'name': 'Succeeded', 'color': 'purple', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c13', 'idBoard': '660a22a04497144c6200e487', 'name': 'Error', 'color': 'red', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c11', 'idBoard': '660a22a04497144c6200e487', 'name': 'In progress', 'color': 'yellow', 'uses': 0}]
+2024-04-10 21:10:51,344 UTC DEBUG    test_labels      labels 660a22a0bf92ddda4f371c10
+2024-04-10 21:10:51,346 UTC INFO     test_labels      Test Get an specific label from a board
+2024-04-10 21:10:51,678 UTC DEBUG    test_labels      Teardown class
+2024-04-10 21:10:51,678 UTC DEBUG    test_labels      Cleanup labels

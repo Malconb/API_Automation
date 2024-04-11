@@ -1,0 +1,27 @@
+2024-04-10 22:48:16,189 UTC DEBUG    test_labels      labels: [{'id': '660a22a0bf92ddda4f371c10', 'idBoard': '660a22a04497144c6200e487', 'name': 'To Do', 'color': 'green', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c12', 'idBoard': '660a22a04497144c6200e487', 'name': 'Warning', 'color': 'orange', 'uses': 0}, {'id': '66160a2a3c267a9d6458b22d', 'idBoard': '660a22a04497144c6200e487', 'name': 'Succeeded', 'color': 'purple', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c13', 'idBoard': '660a22a04497144c6200e487', 'name': 'Error', 'color': 'red', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c11', 'idBoard': '660a22a04497144c6200e487', 'name': 'In progress', 'color': 'yellow', 'uses': 0}]
+2024-04-10 22:48:16,191 UTC DEBUG    test_labels      labels 660a22a0bf92ddda4f371c10
+2024-04-10 22:48:16,199 UTC INFO     test_labels      Test Get labels from a board
+2024-04-10 22:48:16,725 UTC DEBUG    test_labels      Json response: [{'id': '660a22a0bf92ddda4f371c10', 'idBoard': '660a22a04497144c6200e487', 'name': 'To Do', 'color': 'green', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c12', 'idBoard': '660a22a04497144c6200e487', 'name': 'Warning', 'color': 'orange', 'uses': 0}, {'id': '66160a2a3c267a9d6458b22d', 'idBoard': '660a22a04497144c6200e487', 'name': 'Succeeded', 'color': 'purple', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c13', 'idBoard': '660a22a04497144c6200e487', 'name': 'Error', 'color': 'red', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c11', 'idBoard': '660a22a04497144c6200e487', 'name': 'In progress', 'color': 'yellow', 'uses': 0}]
+2024-04-10 22:48:16,726 UTC DEBUG    test_labels      Status Code: 200
+2024-04-10 22:48:16,731 UTC INFO     test_labels      Test Get an specific label from a board
+2024-04-10 22:48:17,625 UTC DEBUG    test_labels      Response to get a label Json: {'id': '660a22a0bf92ddda4f371c10', 'idBoard': '660a22a04497144c6200e487', 'name': 'To Do', 'color': 'green', 'uses': 0}
+2024-04-10 22:48:17,626 UTC DEBUG    test_labels      Status Code: 200
+2024-04-10 22:48:17,634 UTC INFO     test_labels      Test Create a label for a board
+2024-04-10 22:48:18,159 UTC DEBUG    test_labels      Response to CREATE a list Json: {'id': '66174f72c1b5afc4f0ad79b7', 'idBoard': '660a22a04497144c6200e487', 'name': 'Test Create a label', 'color': 'black', 'uses': 0, 'limits': {}}
+2024-04-10 22:48:18,159 UTC DEBUG    test_labels      Status Code: 200
+2024-04-10 22:48:18,163 UTC INFO     conftest         Test Create a label for a board from conftest
+2024-04-10 22:48:18,771 UTC DEBUG    conftest         Response to CREATE a list Json: {'id': '66174f72262dc14d7e32b2ef', 'idBoard': '660a22a04497144c6200e487', 'name': 'Create a label from confTest', 'color': 'blue', 'uses': 0, 'limits': {}}
+2024-04-10 22:48:18,771 UTC DEBUG    conftest         Status Code: 200
+2024-04-10 22:48:18,775 UTC INFO     test_labels      Test Update a label from a board
+2024-04-10 22:48:19,282 UTC DEBUG    test_labels      Response to UPDATE a labels Json: {'id': '66174f72262dc14d7e32b2ef', 'idBoard': '660a22a04497144c6200e487', 'name': 'Updated label', 'color': 'blue', 'uses': 0}
+2024-04-10 22:48:19,282 UTC DEBUG    test_labels      Status Code: 200
+2024-04-10 22:48:19,285 UTC INFO     conftest         Test Create a label for a board from conftest
+2024-04-10 22:48:19,808 UTC DEBUG    conftest         Response to CREATE a list Json: {'id': '66174f73c85f562350e5654f', 'idBoard': '660a22a04497144c6200e487', 'name': 'Create a label from confTest', 'color': 'blue', 'uses': 0, 'limits': {}}
+2024-04-10 22:48:19,809 UTC DEBUG    conftest         Status Code: 200
+2024-04-10 22:48:19,813 UTC INFO     test_labels      Test Delete a label from a board
+2024-04-10 22:48:20,444 UTC DEBUG    test_labels      Response to DELETE a labels Json: {'limits': {}}
+2024-04-10 22:48:20,444 UTC DEBUG    test_labels      Status Code: 200
+2024-04-10 22:48:20,447 UTC DEBUG    test_labels      Teardown class
+2024-04-10 22:48:20,447 UTC DEBUG    test_labels      Cleanup labels
+2024-04-10 22:48:21,043 UTC DEBUG    test_labels      Deleted label by teardown: 66174f72c1b5afc4f0ad79b7
+2024-04-10 22:48:21,673 UTC DEBUG    test_labels      Deleted label by teardown: 66174f72262dc14d7e32b2ef

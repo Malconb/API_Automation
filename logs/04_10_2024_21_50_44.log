@@ -1,0 +1,27 @@
+2024-04-10 21:50:45,249 UTC DEBUG    test_labels      labels: [{'id': '66173c664ab3c5aadb237309', 'idBoard': '660a22a04497144c6200e487', 'name': 'Create a label from confTest', 'color': 'blue', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c10', 'idBoard': '660a22a04497144c6200e487', 'name': 'To Do', 'color': 'green', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c12', 'idBoard': '660a22a04497144c6200e487', 'name': 'Warning', 'color': 'orange', 'uses': 0}, {'id': '66160a2a3c267a9d6458b22d', 'idBoard': '660a22a04497144c6200e487', 'name': 'Succeeded', 'color': 'purple', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c13', 'idBoard': '660a22a04497144c6200e487', 'name': 'Error', 'color': 'red', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c11', 'idBoard': '660a22a04497144c6200e487', 'name': 'In progress', 'color': 'yellow', 'uses': 0}]
+2024-04-10 21:50:45,251 UTC DEBUG    test_labels      labels 66173c664ab3c5aadb237309
+2024-04-10 21:50:45,254 UTC INFO     test_labels      Test Get labels from a board
+2024-04-10 21:50:45,700 UTC DEBUG    test_labels      Json response: [{'id': '66173c664ab3c5aadb237309', 'idBoard': '660a22a04497144c6200e487', 'name': 'Create a label from confTest', 'color': 'blue', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c10', 'idBoard': '660a22a04497144c6200e487', 'name': 'To Do', 'color': 'green', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c12', 'idBoard': '660a22a04497144c6200e487', 'name': 'Warning', 'color': 'orange', 'uses': 0}, {'id': '66160a2a3c267a9d6458b22d', 'idBoard': '660a22a04497144c6200e487', 'name': 'Succeeded', 'color': 'purple', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c13', 'idBoard': '660a22a04497144c6200e487', 'name': 'Error', 'color': 'red', 'uses': 0}, {'id': '660a22a0bf92ddda4f371c11', 'idBoard': '660a22a04497144c6200e487', 'name': 'In progress', 'color': 'yellow', 'uses': 0}]
+2024-04-10 21:50:45,701 UTC DEBUG    test_labels      Status Code: 200
+2024-04-10 21:50:45,707 UTC INFO     test_labels      Test Get an specific label from a board
+2024-04-10 21:50:46,200 UTC DEBUG    test_labels      Response to get a label Json: {'id': '66173c664ab3c5aadb237309', 'idBoard': '660a22a04497144c6200e487', 'name': 'Create a label from confTest', 'color': 'blue', 'uses': 0}
+2024-04-10 21:50:46,201 UTC DEBUG    test_labels      Status Code: 200
+2024-04-10 21:50:46,214 UTC INFO     test_labels      Test Create a label for a board
+2024-04-10 21:50:46,789 UTC DEBUG    test_labels      Response to CREATE a list Json: {'id': '661741f674387e4bb198973b', 'idBoard': '660a22a04497144c6200e487', 'name': 'Test Create a label', 'color': 'black', 'uses': 0, 'limits': {}}
+2024-04-10 21:50:46,789 UTC DEBUG    test_labels      Status Code: 200
+2024-04-10 21:50:46,793 UTC INFO     conftest         Test Create a label for a board from conftest
+2024-04-10 21:50:47,317 UTC DEBUG    conftest         Response to CREATE a list Json: {'id': '66173c664ab3c5aadb237309', 'idBoard': '660a22a04497144c6200e487', 'name': 'Create a label from confTest', 'color': 'blue', 'uses': 0, 'limits': {}}
+2024-04-10 21:50:47,318 UTC DEBUG    conftest         Status Code: 200
+2024-04-10 21:50:47,326 UTC INFO     test_labels      Test Update a label from a board
+2024-04-10 21:50:47,877 UTC DEBUG    test_labels      Response to UPDATE a labels Json: {'id': '66173c664ab3c5aadb237309', 'idBoard': '660a22a04497144c6200e487', 'name': 'Updated label', 'color': 'blue', 'uses': 0}
+2024-04-10 21:50:47,877 UTC DEBUG    test_labels      Status Code: 200
+2024-04-10 21:50:47,886 UTC INFO     conftest         Test Create a label for a board from conftest
+2024-04-10 21:50:48,996 UTC DEBUG    conftest         Response to CREATE a list Json: {'id': '661741f8f9b851e712bc09b0', 'idBoard': '660a22a04497144c6200e487', 'name': 'Create a label from confTest', 'color': 'blue', 'uses': 0, 'limits': {}}
+2024-04-10 21:50:48,996 UTC DEBUG    conftest         Status Code: 200
+2024-04-10 21:50:49,000 UTC INFO     test_labels      Test Delete a label from a board
+2024-04-10 21:50:49,573 UTC DEBUG    test_labels      Response to DELETE a labels Json: {'limits': {}}
+2024-04-10 21:50:49,573 UTC DEBUG    test_labels      Status Code: 200
+2024-04-10 21:50:49,576 UTC DEBUG    test_labels      Teardown class
+2024-04-10 21:50:49,576 UTC DEBUG    test_labels      Cleanup labels
+2024-04-10 21:50:50,221 UTC DEBUG    test_labels      Deleted label by teardown: 661741f674387e4bb198973b
+2024-04-10 21:50:50,970 UTC DEBUG    test_labels      Deleted label by teardown: 66173c664ab3c5aadb237309
