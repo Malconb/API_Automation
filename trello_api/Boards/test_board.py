@@ -1,10 +1,15 @@
 import logging
 
+import pytest
 import requests
 
+from helpers import rest_client
+from helpers.rest_client import RestClient
 from utils.logger import get_logger
+from config.config import url_trello, board_id, key_trello, token_trello, body_main
 
 LOGGER = get_logger(__name__, logging.DEBUG)
+
 
 class TestBoard:
     @classmethod
@@ -12,12 +17,7 @@ class TestBoard:
         """
         Setup class for boards
         """
-        cls.apikey= "5ac0c437ec18dffa026109fd7663759f"
-        cls.apitoken= "ATTA846ab480e3aa57a03aaae484a9a29f79791b08edebb2a37588ed5b84426028240D8B858A"
-        cls.url_trello = "https://api.trello.com/1"
-        cls.board_id = "660a22a04497144c6200e487"
-
-
+        cls.rest_client = RestClient()
 
     def test_get_board(self):
         """
@@ -28,5 +28,29 @@ class TestBoard:
         response = requests.get(self.url_trello_board)
         LOGGER.debug("Json response: %s", response.json())
         LOGGER.debug("Status Code: %s", response.status_code)
-        assert response.status_code== 200, "HTTP response error, expected 200"
+        assert response.status_code == 200, "HTTP response error, expected 200"
 
+    @pytest.mark.acceptance
+    def test_create_board(self):
+        """
+        test create a board
+        """
+        board_test_id = None
+        LOGGER.info("Test Create a Board from conftest")
+        body_project = {
+            'name': 'Board created from confTest',
+            'key': key_trello,
+            'token': token_trello
+        }
+        response = self.rest_client.request("post", f"{url_trello}/boards", body=body_project)
+        assert response.status_code == 200, "HTTP response error, expected 200"
+
+    @pytest.mark.sanity
+    def test_delete_boards(self, create_board):
+        """
+            test delete a board from a board
+        """
+        LOGGER.info("Test Delete a board from a board")
+        LOGGER.info("Board_id to be deleted: %s", create_board)
+        response = self.rest_client.request("delete",f"{url_trello}/boards/{create_board}", body=body_main)
+        assert response.status_code == 200, "HTTP response error, expected 200"

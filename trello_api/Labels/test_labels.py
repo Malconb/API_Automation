@@ -1,8 +1,8 @@
 import logging
 import pytest
-import requests
 
 from config.config import board_id, key_trello, token_trello, url_trello, body_main
+from helpers.rest_client import RestClient
 from utils.logger import get_logger
 
 LOGGER = get_logger(__name__, logging.DEBUG)
@@ -15,8 +15,8 @@ class Testlabel:
         """
         Setup class for labels
         """
-        response = requests.get(f"{url_trello}/boards/{board_id}/labels?key={key_trello}&token={token_trello}")
-        LOGGER.debug("labels: %s", response.json())
+        cls.rest_client = RestClient()
+        response = cls.rest_client.request("get",f"{url_trello}/boards/{board_id}/labels?key={key_trello}&token={token_trello}")
         cls.trellolabel_id = response.json()[0]["id"]
         LOGGER.debug("labels %s", cls.trellolabel_id)
         cls.label_list = []
@@ -28,9 +28,7 @@ class Testlabel:
         """
         LOGGER.info("Test Get all labels from a board")
         self.url_trello_labels = f"{url_trello}/boards/{board_id}/labels?key={key_trello}&token={token_trello}"
-        response = requests.get(self.url_trello_labels)
-        LOGGER.debug("Json response: %s", response.json())
-        LOGGER.debug("Status Code: %s", response.status_code)
+        response = self.rest_client.request("get",self.url_trello_labels)
         assert response.status_code == 200, "HTTP response error, expected 200"
 
     @pytest.mark.sanity
@@ -40,9 +38,7 @@ class Testlabel:
         """
         LOGGER.info("Test Get an specific label from a board")
         self.url_trello_labels = f"{url_trello}/labels/{self.trellolabel_id}?key={key_trello}&token={token_trello}"
-        response = requests.get(self.url_trello_labels)
-        LOGGER.debug("Response to get a label Json: %s", response.json())
-        LOGGER.debug("Status Code: %s", response.status_code)
+        response = self.rest_client.request("get",self.url_trello_labels)
         assert response.status_code == 200, "HTTP response error, expected 200"
 
     @pytest.mark.acceptance
@@ -58,11 +54,9 @@ class Testlabel:
             'key': key_trello,
             'token': token_trello
         }
-        response = requests.post(f"{url_trello}/labels", data=body_project)
+        response = self.rest_client.request("post",f"{url_trello}/labels", body=body_project)
         if response.status_code == 200:
             self.label_list.append(response.json()["id"])
-        LOGGER.debug("Response to CREATE a list Json: %s", response.json())
-        LOGGER.debug("Status Code: %s", response.status_code)
         assert response.status_code == 200, "HTTP response error, expected 200"
 
     @pytest.mark.sanity
@@ -76,11 +70,9 @@ class Testlabel:
             'token': token_trello,
             'name': 'Updated label'
         }
-        response = requests.put(f"{url_trello}/labels/{create_label}", data=body_project)
+        response = self.rest_client.request("put",f"{url_trello}/labels/{create_label}", body=body_project)
         if response.status_code == 200:
             self.label_list.append(response.json()["id"])
-        LOGGER.debug("Response to UPDATE a labels Json: %s", response.json())
-        LOGGER.debug("Status Code: %s", response.status_code)
         assert response.status_code == 200, "HTTP response error, expected 200"
 
     @pytest.mark.sanity
@@ -89,9 +81,7 @@ class Testlabel:
             test delete a label from a board
         """
         LOGGER.info("Test Delete a label from a board")
-        response = requests.delete(f"{url_trello}/labels/{create_label}", data=body_main)
-        LOGGER.debug("Response to DELETE a labels Json: %s", response.json())
-        LOGGER.debug("Status Code: %s", response.status_code)
+        response = self.rest_client.request("delete",f"{url_trello}/labels/{create_label}", body=body_main)
         assert response.status_code == 200, "HTTP response error, expected 200"
 
     @classmethod
@@ -106,7 +96,7 @@ class Testlabel:
         LOGGER.debug("Teardown class")
         LOGGER.debug("Cleanup labels")
         for label_id in cls.label_list:
-            response = requests.delete(f"{url_trello}/labels/{label_id}", data=body_label)
+            response = cls.rest_client.request("delete", f"{url_trello}/labels/{label_id}", body=body_label)
             if response.status_code == 200:
                 LOGGER.debug("Deleted label by teardown: %s", label_id)
 
