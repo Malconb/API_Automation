@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/labels"
+  },
+  "response": {
+    "body":
+      [
+        {
+          "id":"66181bcf1a0aa864849c6900",
+          "idBoard":"660a22a04497144c6200e487",
+          "name":"Create a label from confTest",
+          "color":"blue",
+          "uses":0
+        },
+        {
+          "id":"660a22a0bf92ddda4f371c10",
+          "idBoard":"660a22a04497144c6200e487",
+          "name":"To Do",
+          "color":"green",
+          "uses":0
+        }
+      ]
+  },
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "status_code": 200
+}

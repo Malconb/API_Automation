@@ -22,9 +22,9 @@ def create_label():
         'token': token_trello
     }
     response = rest_client.request("post", f"{url_trello}/labels", body=body_project)
-    assert response.status_code == 200, "HTTP response error, expected 200"
-    if response.status_code == 200:
-        label_id = response.json()["id"]
+    assert response["status_code"] == 200, "HTTP response error, expected 200"
+    if response["status_code"] == 200:
+        label_id = response["body"]["id"]
     return label_id
 
 @pytest.fixture()
@@ -42,3 +42,12 @@ def create_board():
     if response.status_code == 200:
         board_test_id = response.json()["id"]
     return board_test_id
+
+@pytest.fixture()
+def log_test_name (request):
+    LOGGER.info("Test '%s' STARTED", request.node.name)
+
+    def fin():
+        LOGGER.info("Test '%s' COMPLETED", request.node.name)
+
+    request.addfinalizer(fin)

@@ -23,31 +23,28 @@ class Testlist:
         cls.lists_list = []
 
     @pytest.mark.acceptance
-    def test_get_lists(self):
+    def test_get_lists(self, log_test_name):
         """
         test get lists from a board
         """
-        LOGGER.info("Test Get lists from a board")
         self.url_trello_labels = f"{url_trello}/boards/{board_id}/lists?{credentials}"
         response = self.rest_client.request("get",self.url_trello_labels)
         assert response.status_code == 200, "HTTP response error, expected 200"
 
     @pytest.mark.sanity
-    def test_get_list(self):
+    def test_get_list(self, log_test_name):
         """
         test get an specific list from a board
         """
-        LOGGER.info("Test Get an specific list from a board")
         self.url_trello_lists = f"{url_trello}/lists/{self.trellolist_id}?{credentials}"
         response = self.rest_client.request("get",self.url_trello_lists)
         assert response.status_code == 200, "HTTP response error, expected 200"
 
     @pytest.mark.sanity
-    def test_create_list(self):
+    def test_create_list(self, log_test_name):
         """
         test create an specific list from a board
         """
-        LOGGER.info("Test Create a list for a board")
         body_project = {
             'name': 'Test Create a list2',
             'idBoard': board_id,
@@ -58,11 +55,10 @@ class Testlist:
         assert response.status_code == 200, "HTTP response error, expected 200"
 
     @pytest.mark.sanity
-    def test_update_list(self):
+    def test_update_list(self, log_test_name):
         """
             test update a list from a board
         """
-        LOGGER.info("Test Update a list from a board")
         body_project = {
             'key': key_trello,
             'token': token_trello,
