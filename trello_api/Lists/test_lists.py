@@ -2,7 +2,7 @@ import logging
 import pytest
 import requests
 
-from config.config import url_trello, board_id, key_trello, token_trello
+from config.config import url_trello, board_id, key_trello, token_trello, credentials
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
 
@@ -17,7 +17,7 @@ class Testlist:
         Setup class for artist
         """
         cls.rest_client = RestClient()
-        response = cls.rest_client.request("get",f"{url_trello}/boards/{board_id}/lists?key={key_trello}&token={token_trello}")
+        response = cls.rest_client.request("get",f"{url_trello}/boards/{board_id}/lists?{credentials}")
         cls.trellolist_id = response.json()[0]["id"]
         LOGGER.debug("list %s", cls.trellolist_id)
         cls.lists_list = []
@@ -28,7 +28,7 @@ class Testlist:
         test get lists from a board
         """
         LOGGER.info("Test Get lists from a board")
-        self.url_trello_labels = f"{url_trello}/boards/{board_id}/lists?key={key_trello}&token={token_trello}"
+        self.url_trello_labels = f"{url_trello}/boards/{board_id}/lists?{credentials}"
         response = self.rest_client.request("get",self.url_trello_labels)
         assert response.status_code == 200, "HTTP response error, expected 200"
 
@@ -38,7 +38,7 @@ class Testlist:
         test get an specific list from a board
         """
         LOGGER.info("Test Get an specific list from a board")
-        self.url_trello_lists = f"{url_trello}/lists/{self.trellolist_id}?key={key_trello}&token={token_trello}"
+        self.url_trello_lists = f"{url_trello}/lists/{self.trellolist_id}?{credentials}"
         response = self.rest_client.request("get",self.url_trello_lists)
         assert response.status_code == 200, "HTTP response error, expected 200"
 

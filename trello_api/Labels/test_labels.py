@@ -1,7 +1,7 @@
 import logging
 import pytest
 
-from config.config import board_id, key_trello, token_trello, url_trello, body_main
+from config.config import board_id, key_trello, token_trello, url_trello, body_main, credentials
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
 
@@ -16,7 +16,7 @@ class Testlabel:
         Setup class for labels
         """
         cls.rest_client = RestClient()
-        response = cls.rest_client.request("get",f"{url_trello}/boards/{board_id}/labels?key={key_trello}&token={token_trello}")
+        response = cls.rest_client.request("get",f"{url_trello}/boards/{board_id}/labels?{credentials}")
         cls.trellolabel_id = response.json()[0]["id"]
         LOGGER.debug("labels %s", cls.trellolabel_id)
         cls.label_list = []
@@ -27,7 +27,7 @@ class Testlabel:
         test get all labels from a board
         """
         LOGGER.info("Test Get all labels from a board")
-        self.url_trello_labels = f"{url_trello}/boards/{board_id}/labels?key={key_trello}&token={token_trello}"
+        self.url_trello_labels = f"{url_trello}/boards/{board_id}/labels?{credentials}"
         response = self.rest_client.request("get",self.url_trello_labels)
         assert response.status_code == 200, "HTTP response error, expected 200"
 
@@ -37,7 +37,7 @@ class Testlabel:
         test get an specific label from a board
         """
         LOGGER.info("Test Get an specific label from a board")
-        self.url_trello_labels = f"{url_trello}/labels/{self.trellolabel_id}?key={key_trello}&token={token_trello}"
+        self.url_trello_labels = f"{url_trello}/labels/{self.trellolabel_id}?{credentials}"
         response = self.rest_client.request("get",self.url_trello_labels)
         assert response.status_code == 200, "HTTP response error, expected 200"
 

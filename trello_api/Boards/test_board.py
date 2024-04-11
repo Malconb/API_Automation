@@ -6,7 +6,7 @@ import requests
 from helpers import rest_client
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
-from config.config import url_trello, board_id, key_trello, token_trello, body_main
+from config.config import url_trello, board_id, key_trello, token_trello, body_main, credentials
 
 LOGGER = get_logger(__name__, logging.DEBUG)
 
@@ -24,7 +24,7 @@ class TestBoard:
         test get a board
         """
         LOGGER.info("Test Get a board")
-        self.url_trello_board = f"{self.url_trello}/boards/{self.board_id}?key={self.apikey}&token={self.apitoken}"
+        self.url_trello_board = f"{url_trello}/boards/{board_id}?{credentials}"
         response = requests.get(self.url_trello_board)
         LOGGER.debug("Json response: %s", response.json())
         LOGGER.debug("Status Code: %s", response.status_code)
@@ -54,3 +54,4 @@ class TestBoard:
         LOGGER.info("Board_id to be deleted: %s", create_board)
         response = self.rest_client.request("delete",f"{url_trello}/boards/{create_board}", body=body_main)
         assert response.status_code == 200, "HTTP response error, expected 200"
+
