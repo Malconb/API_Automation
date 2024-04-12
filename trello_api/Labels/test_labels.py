@@ -25,13 +25,14 @@ class Testlabel:
 
 
     @pytest.mark.acceptance
-    def test_get_labels(self, log_test_name):
+    def test_get_all_labels(self, log_test_name):
         """
         test get all labels from a board
         """
         self.url_trello_labels = f"{url_trello}/boards/{board_id}/labels?{credentials}"
         response = self.rest_client.request("get",self.url_trello_labels)
         assert response["status_code"] == 200, "HTTP response error, expected 200"
+        self.validate.validate_response(response, "labels", "get_all_labels")
 
     @pytest.mark.sanity
     def test_get_label(self, log_test_name):
@@ -40,7 +41,7 @@ class Testlabel:
         """
         self.url_trello_labels = f"{url_trello}/labels/{self.trellolabel_id}?{credentials}"
         response = self.rest_client.request("get",self.url_trello_labels)
-        self.validate.validate_response(response, "labels")
+        self.validate.validate_response(response, "labels", "get_label")
 
     @pytest.mark.acceptance
     def test_create_label(self, log_test_name):
@@ -57,10 +58,10 @@ class Testlabel:
         response = self.rest_client.request("post",f"{url_trello}/labels", body=body_project)
         if response["status_code"] == 200:
             self.label_list.append(response["body"]["id"])
-        assert response["status_code"] == 200, "HTTP response error, expected 200"
+        self.validate.validate_response(response, "labels", "create_label")
 
     @pytest.mark.sanity
-    def test_update_labels(self, create_label, log_test_name):
+    def test_update_label(self, create_label, log_test_name):
         """
             test update a label from a board
         """
@@ -72,15 +73,15 @@ class Testlabel:
         response = self.rest_client.request("put",f"{url_trello}/labels/{create_label}", body=body_project)
         if response["status_code"] == 200:
             self.label_list.append(response["body"]["id"])
-        assert response["status_code"] == 200, "HTTP response error, expected 200"
+        self.validate.validate_response(response, "labels", "update_label")
 
     @pytest.mark.sanity
-    def test_delete_labels(self, create_label, log_test_name):
+    def test_delete_label(self, create_label, log_test_name):
         """
             test delete a label from a board
         """
         response = self.rest_client.request("delete",f"{url_trello}/labels/{create_label}", body=body_main)
-        assert response["status_code"] == 200, "HTTP response error, expected 200"
+        self.validate.validate_response(response, "labels", "delete_label")
 
     @classmethod
     def teardown_class(cls):

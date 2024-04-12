@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "/projects"
+  },
+  "response": {
+    "body":
+        {
+          "limits":{}
+        }
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "status_code": 200
+}

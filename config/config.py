@@ -12,3 +12,5 @@ body_main = {
     'token': token_trello
 }
 credentials = f"key={key_trello}&token={token_trello}"
+
+abs_path = os.path.abspath(__file__ + "../../../")

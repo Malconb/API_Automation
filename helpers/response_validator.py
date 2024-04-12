@@ -1,19 +1,20 @@
 import json
 import logging
 
+from config.config import abs_path
 from utils.logger import get_logger
 
 LOGGER = get_logger(__name__, logging.DEBUG)
 class ValidateResponse:
 
-    def validate_response(self, actual_response=None, endpoint=None):
+    def validate_response(self, actual_response=None, endpoint=None, file_name=None):
         """
 
         :param actual_response: REST response
         :param endpoint:        endpoint used i.e. labels
         """
         #read from json file
-        expected_response = self.read_input_data_json("/home/miguel/API_Automation/API_Automation/trello_api/input_data/labels/get_all_labels.json")
+        expected_response = self.read_input_data_json(f"{abs_path}/trello_api/input_data/{endpoint}/{file_name}.json")
 
         #compare results
 
@@ -22,7 +23,7 @@ class ValidateResponse:
         #validate headers
         self.validate_value(actual_response["headers"], expected_response["headers"], key_compare="headers")
         #validate body
-        #self.validate_value(actual_response["body"], expected_response["response"]["body"], key_compare="body")
+        self.validate_value(actual_response["body"], expected_response["response"]["body"], key_compare="body")
 
     def validate_value(self, actual_value, expected_value, key_compare):
         error_message = f"Expected '{expected_value}' but received '{actual_value}'"
@@ -35,9 +36,7 @@ class ValidateResponse:
             else:
                 assert self.compare_json_keys(actual_value, expected_value), error_message
         elif key_compare == "headers":
-            LOGGER.debug("before assert")
             assert expected_value.items() <= actual_value.items()
-            LOGGER.debug("after assert")
         else:
 
             assert expected_value == actual_value, error_message
