@@ -1,6 +1,6 @@
 import logging
 
-from config.config import key_trello, token_trello, url_trello
+from config.config import key_trello, token_trello, url_trello, body_main
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
 
@@ -15,7 +15,7 @@ class Board:
         if rest_client is None:
             self.rest_client = RestClient()
 
-    def create_project(self, body=None):
+    def create_board(self, body=None):
         body_project = body
         if body is None:
             body_project = {
@@ -27,14 +27,10 @@ class Board:
 
         return response, self.rest_client
 
-    def delete_board(self, project_id):
+    def delete_board(self, board_test_id):
 
-        LOGGER.info("Board_id to be deleted: %s", create_board()[0])
-        response = self.rest_client.request("delete", f"{url_trello}/boards/{create_board()[0]}", body=body_main)
-        self.validate.validate_response(response, "boards", "delete_board")
+        LOGGER.debug("Cleanup project")
+        response = self.rest_client.request("delete", f"{url_trello}/boards/{board_test_id}", body=body_main)
+        if response["status_code"] == 200:
+            LOGGER.debug("Deleted board by entity: %s", board_test_id)
 
-
-        url_delete_project = f"{URL_TODO}/projects/{project_id}"
-        response = self.rest_client.request("delete", url_delete_project)
-        if response["status_code"] == 204:
-            LOGGER.info("project Id deleted : %s", project_id)

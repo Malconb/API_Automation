@@ -1,8 +1,7 @@
 import logging
 
 import pytest
-import requests
-
+from entities.board import Board
 from helpers.response_validator import ValidateResponse
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
@@ -20,6 +19,7 @@ class TestBoard:
         cls.rest_client = RestClient()
         cls.validate = ValidateResponse()
         cls.board_list = []
+        cls.board = Board()
 
     @pytest.mark.acceptance
     def test_get_all_boards(self, log_test_name):
@@ -95,16 +95,12 @@ class TestBoard:
                 'key': key_trello,
                 'token': token_trello
             }
-            response =self.rest_client.request("post", f"{url_trello}/boards", body=body_project)
+            response, _ = self.board.create_board(body=body_project)
             if response["status_code"] == 200:
                 self.board_list.append(response["body"]["id"])
 
-        body_project = {
-            'name': 'Last Board',
-            'key': key_trello,
-            'token': token_trello
-        }
-        response = self.rest_client.request("post", f"{url_trello}/boards", body=body_project)
+        # Try for exceeded board
+        response, _ = self.board.create_board()
         if response["status_code"] == 200:
             self.board_list.append(response["body"]["id"])
         self.validate.validate_response(response, "boards", "max_number_boards")
