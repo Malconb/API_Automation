@@ -1,6 +1,6 @@
 {
   "request": {
-    "method": "PUT",
+    "method": "POST",
     "url": "/labels"
   },
   "response": {
@@ -9,9 +9,12 @@
         {
           "id":"66181bcf1a0aa864849c6900",
           "idBoard":"660a22a04497144c6200e487",
-          "name":"Create a label from confTest",
-          "color":"blue",
-          "uses":0
+          "name": "Test Create a list2",
+          "closed": "False",
+          "color": "None",
+          "idBoard": "660a22a04497144c6200e487",
+          "pos": 256,
+          "limits": {}
         }
   },
   "headers": {

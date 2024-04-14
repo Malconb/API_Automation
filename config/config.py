@@ -14,3 +14,10 @@ body_main = {
 credentials = f"key={key_trello}&token={token_trello}"
 
 abs_path = os.path.abspath(__file__ + "../../../")
+
+org_id = os.getenv("organization_id")
+
+org_header = {
+        "Accept": "*/*",
+        "Host": "api.trello.com"
+    }

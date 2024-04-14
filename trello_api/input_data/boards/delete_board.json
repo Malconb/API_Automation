@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "DELETE",
-    "url": "/label"
+    "url": "/boards"
   },
   "response": {
     "body":
         {
-          "limits":{}
+          "_value": "None"
         }
   },
   "headers": {

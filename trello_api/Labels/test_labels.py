@@ -31,7 +31,6 @@ class Testlabel:
         """
         self.url_trello_labels = f"{url_trello}/boards/{board_id}/labels?{credentials}"
         response = self.rest_client.request("get",self.url_trello_labels)
-        assert response["status_code"] == 200, "HTTP response error, expected 200"
         self.validate.validate_response(response, "labels", "get_all_labels")
 
     @pytest.mark.sanity

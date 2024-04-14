@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/boards"
+  },
+  "response": {
+    "body":
+    {
+      "id":"660a22a04497144c6200e487",
+      "name":"API test",
+      "desc":"",
+      "descData":null,
+      "closed":false,
+      "idOrganization":"6609dac99552375028946f5a",
+      "idEnterprise":null,
+      "pinned":false,
+      "url":"https://trello.com/b/BU0nADrG/api-test",
+      "shortUrl":"https://trello.com/b/BU0nADrG",
+      "prefs": {},
+      "labelNames": {}
+    }
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Download-Options": "noopen"
+  },
+  "status_code": 200
+}

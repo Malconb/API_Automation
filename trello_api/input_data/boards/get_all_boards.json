@@ -1,0 +1,81 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/boards"
+  },
+  "response": {
+    "body":
+      [
+        {
+          "id":"6609daca95523750289473a9",
+          "nodeId":"ari:cloud:trello::board/workspace/6609dac99552375028946f5a/6609daca95523750289473a9",
+          "name":"API automation test",
+          "desc":"Description ✨",
+          "descData":"null",
+          "closed":"false",
+          "dateClosed":"null",
+          "idOrganization":"6609dac99552375028946f5a",
+          "idEnterprise":"null",
+          "limits":{},
+          "pinned":"false",
+          "starred":"false",
+          "url":"https://trello.com/b/OuALdHrT/api-automation-test",
+          "prefs":{},
+          "shortLink":"OuALdHrT",
+          "subscribed":"false",
+          "labelNames":{},
+          "powerUps":{},
+          "dateLastActivity":"2024-04-01T02:56:46.313Z",
+          "dateLastView":"2024-04-08T02:08:36.437Z",
+          "shortUrl":"https://trello.com/b/OuALdHrT",
+          "idTags":{},
+          "datePluginDisable":"null",
+          "creationMethod":"null",
+          "ixUpdate":"12",
+          "templateGallery":"null",
+          "enterpriseOwned":"false",
+          "idBoardSource":"5c3e2fdb0fa92e43b849d838",
+          "premiumFeatures":{},
+          "idMemberCreator":"6602570cbefda18eb574a053",
+          "memberships":{}
+        },
+        {
+          "id": "6609daca95523750289473a9",
+          "nodeId": "ari:cloud:trello::board/workspace/6609dac99552375028946f5a/6609daca95523750289473a9",
+          "name": "API automation test",
+          "desc": "Description ✨",
+          "descData": "null",
+          "closed": "false",
+          "dateClosed": "null",
+          "idOrganization": "6609dac99552375028946f5a",
+          "idEnterprise": "null",
+          "limits": {},
+          "pinned": "false",
+          "starred": "false",
+          "url": "https://trello.com/b/OuALdHrT/api-automation-test",
+          "prefs": {},
+          "shortLink": "OuALdHrT",
+          "subscribed": "false",
+          "labelNames": {},
+          "powerUps": {},
+          "dateLastActivity": "2024-04-01T02:56:46.313Z",
+          "dateLastView": "2024-04-08T02:08:36.437Z",
+          "shortUrl": "https://trello.com/b/OuALdHrT",
+          "idTags": {},
+          "datePluginDisable": "null",
+          "creationMethod": "null",
+          "ixUpdate": "12",
+          "templateGallery": "null",
+          "enterpriseOwned": "false",
+          "idBoardSource": "5c3e2fdb0fa92e43b849d838",
+          "premiumFeatures": {},
+          "idMemberCreator": "6602570cbefda18eb574a053",
+          "memberships": {}
+        }
+      ]
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "status_code": 200
+}

@@ -1,8 +1,9 @@
 import logging
 import pytest
-import requests
 
-from config.config import url_trello, board_id, key_trello, token_trello, credentials
+
+from config.config import url_trello, board_id, key_trello, token_trello, credentials, body_main
+from helpers.response_validator import ValidateResponse
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
 
@@ -18,27 +19,28 @@ class Testlist:
         """
         cls.rest_client = RestClient()
         response = cls.rest_client.request("get",f"{url_trello}/boards/{board_id}/lists?{credentials}")
-        cls.trellolist_id = response.json()[0]["id"]
+        cls.trellolist_id = response["body"][0]["id"]
         LOGGER.debug("list %s", cls.trellolist_id)
         cls.lists_list = []
+        cls.validate = ValidateResponse()
 
-    @pytest.mark.acceptance
-    def test_get_lists(self, log_test_name):
+    @pytest.mark.sanity
+    def test_get_all_lists(self, log_test_name):
         """
         test get lists from a board
         """
         self.url_trello_labels = f"{url_trello}/boards/{board_id}/lists?{credentials}"
         response = self.rest_client.request("get",self.url_trello_labels)
-        assert response.status_code == 200, "HTTP response error, expected 200"
+        self.validate.validate_response(response, "lists", "get_all_lists")
 
     @pytest.mark.sanity
     def test_get_list(self, log_test_name):
         """
         test get an specific list from a board
         """
-        self.url_trello_lists = f"{url_trello}/lists/{self.trellolist_id}?{credentials}"
+        self.url_trello_lists = f"{url_trello}/lists/660a22b1e9b74ea661d4cc0d?{credentials}"
         response = self.rest_client.request("get",self.url_trello_lists)
-        assert response.status_code == 200, "HTTP response error, expected 200"
+        self.validate.validate_response(response, "lists", "get_list")
 
     @pytest.mark.sanity
     def test_create_list(self, log_test_name):
@@ -52,7 +54,7 @@ class Testlist:
             'token': token_trello
         }
         response = self.rest_client.request("post",f"{url_trello}/lists", body=body_project)
-        assert response.status_code == 200, "HTTP response error, expected 200"
+        self.validate.validate_response(response, "lists", "create_list")
 
     @pytest.mark.sanity
     def test_update_list(self, log_test_name):
@@ -62,7 +64,20 @@ class Testlist:
         body_project = {
             'key': key_trello,
             'token': token_trello,
-            'name': 'Updated Test list'
+            'name': 'Updated Test list2'
         }
         response = self.rest_client.request("put",f"{url_trello}/lists/{self.trellolist_id}", body=body_project)
-        assert response.status_code == 200, "HTTP response error, expected 200"
+        self.validate.validate_response(response, "lists", "update_list")
+
+    @pytest.mark.acceptance
+    def test_archive_list(self, log_test_name):
+        """
+            test update a list from a board
+        """
+        body_archive = {
+            'value': 'true',
+            'key': key_trello,
+            'token': token_trello
+        }
+        response = self.rest_client.request("put", f"{url_trello}/lists/660a22b1e9b74ea661d4cc0d/closed", body=body_archive)
+        self.validate.validate_response(response, "lists", "update_list")

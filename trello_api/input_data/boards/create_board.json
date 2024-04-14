@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/boards"
+  },
+  "response": {
+    "body":
+    {
+      "id": "6619abcf02e05eff80e28c20",
+      "name": "Board created from confTest",
+      "desc": "",
+      "descData": "None",
+      "closed": "False",
+      "idOrganization":"6609dac99552375028946f5a",
+      "idEnterprise": "None",
+      "pinned": "False",
+      "url": "https://trello.com/b/uBmMCAwS/board-created-from-conftest",
+      "shortUrl": "https://trello.com/b/uBmMCAwS",
+      "prefs": {},
+      "labelNames": {},
+      "limits": {}
+    }
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "status_code": 200
+}

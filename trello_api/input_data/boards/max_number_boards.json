@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/boards"
+  },
+  "response": {
+    "body":
+    {
+      "msg":"{\"message\":\"Board must be in a team — specify an idOrganization\"}"
+    }
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Download-Options": "noopen"
+  },
+  "status_code": 400
+}

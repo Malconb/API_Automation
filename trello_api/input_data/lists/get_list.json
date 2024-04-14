@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/lists"
+  },
+  "response": {
+    "body":
+    {
+      "id":"66194bb59b2acdef4d826dbb",
+      "name":"Test Create a list2",
+      "closed":false,"color":null,
+      "idBoard":"660a22a04497144c6200e487",
+      "pos":1024
+    }
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Download-Options": "noopen"
+  },
+  "status_code": 200
+}

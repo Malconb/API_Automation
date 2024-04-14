@@ -13,6 +13,7 @@ class RestClient:
     def __init__(self):
         self.session = requests.session()
 
+
     def request(self, method_name, url, body=None):
         """
         response["status_code"]
