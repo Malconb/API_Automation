@@ -46,11 +46,13 @@ class TestBoard:
         """
             test update a board
         """
-        body_project = {
-            'key': key_trello,
-            'token': token_trello,
-            'name': 'Updated Board'
-        }
+        #body_project = {
+        #    'key': key_trello,
+        #    'token': token_trello,
+        #    'name': 'Updated Board'
+        #}
+        body_project = body_main
+        body_project["name"] = "Updated board"
         response = self.rest_client.request("put", f"{url_trello}/boards/{create_board}", body=body_project)
         if response["status_code"] == 200:
             self.board_list.append(response["body"]["id"])

@@ -33,26 +33,27 @@ def get_logger(name: object, level: object = DEFAULT_LOG_LEVEL, log_format: obje
     logger = logging.getLogger(name)
     log_file_name = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 
-    for handler in logger.handlers:
-        logger.removeHandler(handler)
-    handler = logging.StreamHandler(sys.__stdout__)
-    handler.setLevel(level)
-    abs_path = os.path.abspath(__file__ + "../../../")
-    # if logs folder there is not exist it wil be created
-    pathlib.Path(f"{abs_path}/logs").mkdir(parents=True, exist_ok=True)
-    handler_file = handlers.RotatingFileHandler(f"{abs_path}/logs/{log_file_name}.log",
-                                                maxBytes=1000000, backupCount=5)
-    handler_file.setLevel(level)
+    if not logger.handlers:
+        for handler in logger.handlers:
+            logger.removeHandler(handler)
+        handler = logging.StreamHandler(sys.__stdout__)
+        handler.setLevel(level)
+        abs_path = os.path.abspath(__file__ + "../../../")
+        # if logs folder there is not exist it wil be created
+        pathlib.Path(f"{abs_path}/logs").mkdir(parents=True, exist_ok=True)
+        handler_file = handlers.RotatingFileHandler(f"{abs_path}/logs/{log_file_name}.log",
+                                                    maxBytes=1000000, backupCount=5)
+        handler_file.setLevel(level)
 
-    fmt = logging.Formatter(log_format)
-    handler.setFormatter(fmt)
-    handler_file.setFormatter(fmt)
+        fmt = logging.Formatter(log_format)
+        handler.setFormatter(fmt)
+        handler_file.setFormatter(fmt)
 
-    logger.addHandler(handler)
-    logger.addHandler(handler_file)
-    logger.propagate = False
+        logger.addHandler(handler)
+        logger.addHandler(handler_file)
+        logger.propagate = False
 
-    logger.setLevel(level)
+        logger.setLevel(level)
 
     return logger
 # End-of-file (EOF)
