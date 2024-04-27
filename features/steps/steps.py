@@ -42,4 +42,4 @@ def step_impl(context):
 def step_impl(context, status_code):
     LOGGER.debug(f"STEP: Then I validated the status code is {status_code}")
     assert context.response["status_code"] == status_code, \
-        f"Expected {status_code} but got {context.response["status_code"]}"
+        f"Expected {status_code} but got {context.response['status_code']}"
