@@ -1,3 +1,4 @@
+allure-behave==2.13.5
 pytest==8.1.1
 allure-pytest==2.13.3
 pylint==3.1.0
