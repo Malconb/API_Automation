@@ -21,15 +21,23 @@ def step_impl(context, endpoint, method_name):
     context.method_name = method_name
 
 
+@when(u'I call to "Boards" endpoint using "GET" option')
+def step_impl(context, endpoint, method_name):
+    LOGGER.debug(f"STEP: When I call to '{endpoint}' endpoint using '{method_name}' option and with parameters")
+    context.url_trello_board = f"{context.url_trello}/boards/{create_board}?{credentials}"
+    response = context.rest_client.request("get", context.url_trello_board)
+    if response["status_code"] == 200:
+        context.board_list.append(response["body"]["id"])
+    context.validate.validate_response(response, "boards", "get_board")
 
 
 @when(u'I call to "{endpoint}" endpoint using "{method_name}" option and with parameters test')
 def step_impl(context, endpoint, method_name):
     LOGGER.debug(f"STEP: When I call to '{endpoint}' endpoint using '{method_name}' option and with parameters")
     context.response = context.rest_client.request("post", f"{context.url_trello}/boards", body=context.body_project)
-    if response["status_code"] == 200:
-        self.board_list.append(response["body"]["id"])
-    self.validate.validate_response(response, "boards", "create_board")
+    if context.response["status_code"] == 200:
+        context.board_list.append(context.response["body"]["id"])
+    context.validate.validate_response(context.response, "boards", "create_board")
 
 
 @then(u'I receive the response to validate')
