@@ -1,0 +1,82 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/cards"
+  },
+  "response": {
+    "body":
+      [
+        {
+          "id":"662dab0ff0ceb1b22a3d6c8c",
+          "badges":{},
+          "checkItemStates":[],
+          "closed":false,
+          "dueComplete":false,
+          "dateLastActivity":"2024-04-28T01:51:48.851Z",
+          "desc":"",
+          "descData":{},
+          "due":null,
+          "dueReminder":null,
+          "email":null,
+          "idBoard":"660a22a04497144c6200e487",
+          "idChecklists":[],
+          "idList":"662da950a797a7735ed16fd8",
+          "idMembers":[],
+          "idMembersVoted":[],
+          "idShort":2,
+          "idAttachmentCover":null,
+          "labels":[],
+          "idLabels":[],
+          "manualCoverAttachment":false,
+          "name":"TestCard 1",
+          "pos":65536,
+          "shortLink":"cHXEwpgN",
+          "shortUrl":"https://trello.com/c/cHXEwpgN",
+          "start":null,
+          "subscribed":false,
+          "url":"https://trello.com/c/cHXEwpgN/2-testcard-1",
+          "cover":{},
+          "isTemplate":false,
+          "cardRole":null
+        },
+        {
+          "id":"662dab0ff0ceb1b22a3d6c8c",
+          "badges":{},
+          "checkItemStates":[],
+          "closed":false,
+          "dueComplete":false,
+          "dateLastActivity":"2024-04-28T01:51:48.851Z",
+          "desc":"",
+          "descData":{},
+          "due":null,
+          "dueReminder":null,
+          "email":null,
+          "idBoard":"660a22a04497144c6200e487",
+          "idChecklists":[],
+          "idList":"662da950a797a7735ed16fd8",
+          "idMembers":[],
+          "idMembersVoted":[],
+          "idShort":2,
+          "idAttachmentCover":null,
+          "labels":[],
+          "idLabels":[],
+          "manualCoverAttachment":false,
+          "name":"TestCard 1",
+          "pos":65536,
+          "shortLink":"cHXEwpgN",
+          "shortUrl":"https://trello.com/c/cHXEwpgN",
+          "start":null,
+          "subscribed":false,
+          "url":"https://trello.com/c/cHXEwpgN/2-testcard-1",
+          "cover":{},
+          "isTemplate":false,
+          "cardRole":null
+        }
+      ]
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Download-Options": "noopen"
+  },
+  "status_code": 200
+}

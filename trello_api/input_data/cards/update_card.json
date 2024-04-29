@@ -1,0 +1,47 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/cards"
+  },
+  "response": {
+    "body":
+    {
+       "id":"662fee1be5b4ebbd763f2258",
+       "badges":{},
+       "checkItemStates":[],
+       "closed":false,
+       "dueComplete":false,
+       "dateLastActivity":"2024-04-29T18:59:39.348Z",
+       "desc":"",
+       "descData":{},
+       "due":null,
+       "dueReminder":null,
+       "email":null,
+       "idBoard":"662fee1a5f4864b0f1fcc3ef",
+       "idChecklists":[],
+       "idList":"662fee1a36ec49b5085ab419",
+       "idMembers":[],
+       "idMembersVoted":[],
+       "idShort":1,
+       "idAttachmentCover":null,
+       "labels":[],
+       "idLabels":[],
+       "manualCoverAttachment":false,
+       "name":"Create a Card from confTest",
+       "pos":16384,
+       "shortLink":"T7piwcdf",
+       "shortUrl":"https://trello.com/c/T7piwcdf",
+       "start":null,
+       "subscribed":false,
+       "url":"https://trello.com/c/T7piwcdf/1-create-a-card-from-conftest",
+       "cover":{},
+       "isTemplate":false,
+       "cardRole":null
+    }
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Download-Options": "noopen"
+  },
+  "status_code": 200
+}
