@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string description: 'If this field is set, pytest will run for filled tags e.g. "@acceptance"', name: 'TAG'
+        text description: 'If this field is set, pytest will run for filled tags e.g. "@acceptance"', name: 'TAG'
     }
 
     stages {
