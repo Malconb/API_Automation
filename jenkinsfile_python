@@ -17,13 +17,14 @@ pipeline {
         }
         stage('reports') {
             steps {
+                sh 'allure serve reports/allure/'
                 script {
                     allure ([
                         includeProperties: false,
                         jdk:'',
                         properties: [],
                         reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'reports/allure']]
+                        results: [[path: 'reports/allure/']]
                     ])
                  }
             }
