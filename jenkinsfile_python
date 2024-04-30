@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    parameters {
-        text description: 'If this field is set, pytest will run for filled tags e.g. "@acceptance"', name: 'TAG'
-    }
 
     stages {
         stage('python version') {
@@ -14,7 +11,7 @@ pipeline {
             steps {
                 withPythonEnv('python3') {
                     sh 'pip install -r requirements.txt'
-                    sh 'python3 -m pytest trello_api/ ${params.TAG} -v --alluredir reports/allure/'
+                    sh 'python3 -m pytest trello_api/ -v -s --alluredir reports/allure/'
                 }
             }
         }
