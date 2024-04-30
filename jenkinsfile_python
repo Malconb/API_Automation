@@ -17,7 +17,6 @@ pipeline {
         }
         stage('reports') {
             steps {
-                sh 'allure serve reports/allure/'
                 script {
                     allure ([
                         includeProperties: false,
