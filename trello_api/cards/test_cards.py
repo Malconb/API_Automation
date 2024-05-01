@@ -31,8 +31,7 @@ class TestCard:
         response = cls.rest_client.request("post", f"{url_trello}/cards", body=body_project)
         cls.card_id = response["body"]["id"]
 
-
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_get_all_cards(self, log_test_name):
         """
         test get all cards from a board
@@ -42,6 +41,7 @@ class TestCard:
         self.validate.validate_response(response, "cards", "get_all_cards")
 
     @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_get_card(self, create_card, log_test_name):
         """
         test get a specific a list from a board
@@ -50,7 +50,7 @@ class TestCard:
         response = self.rest_client.request("get", self.url_trello_cards)
         self.validate.validate_response(response, "cards", "get_card")
 
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_create_card(self, create_list, log_test_name):
         """
         test create a Card from a list
@@ -61,7 +61,7 @@ class TestCard:
         response = self.rest_client.request("post", f"{url_trello}/cards", body=body_project)
         self.validate.validate_response(response, "cards", "create_card")
 
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_update_card(self, create_card, log_test_name):
         """
             test update a card from a Board
@@ -82,6 +82,25 @@ class TestCard:
         body_project = body_main
         response = self.rest_client.request("delete", f"{url_trello}/cards/{create_card}", body=body_project)
         self.validate.validate_response(response, "cards", "delete_card")
+
+    @pytest.mark.functional
+    def test_card_move_among_lists(self, log_test_name):
+        """
+            test card is able to move between all lists in a Board
+        """
+        self.url_trello_lists = f"{url_trello}/boards/{self.board_id}/lists?{credentials}"
+        response = self.rest_client.request("get", self.url_trello_lists)
+        num_of_lists = len(response["body"])
+        LOGGER.debug("number of lists: %s", num_of_lists)
+        list_of_listids = response["body"]
+        for index in range(0, num_of_lists):
+            body_moved_card = body_main
+            body_moved_card["idList"] = list_of_listids[index]["id"]
+            LOGGER.debug("Moving card to list_id: %s", body_moved_card["idList"])
+            response = self.rest_client.request("put", f"{url_trello}/cards/{self.card_id}", body=body_moved_card)
+            self.validate.validate_response(response, "cards", "update_card")
+
+
 
     @classmethod
     def teardown_class(cls):

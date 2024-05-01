@@ -13,7 +13,6 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 @pytest.fixture()
 def create_board():
     board_test_id = None
-
     LOGGER.info("Test Create a Board from conftest")
     board = Board()
     response, rest_client = board.create_board()

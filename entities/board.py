@@ -1,6 +1,6 @@
 import logging
 
-from config.config import key_trello, token_trello, url_trello, body_main
+from config.config import url_trello, body_main
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
 
@@ -18,11 +18,8 @@ class Board:
     def create_board(self, body=None):
         body_project = body
         if body is None:
-            body_project = {
-                'name': 'Board created from Entity',
-                'key': key_trello,
-                'token': token_trello
-            }
+            body_project = body_main
+            body_project["name"] = "Board created from Entity"
         response = self.rest_client.request("post", f"{self.url_trello_boards}", body=body_project)
 
         return response, self.rest_client

@@ -29,6 +29,7 @@ class TestLabel:
         response = self.rest_client.request("get",self.url_trello_labels)
         self.validate.validate_response(response, "labels", "get_all_labels")
 
+    @pytest.mark.acceptance
     @pytest.mark.sanity
     def test_get_label(self, create_label, log_test_name):
         """
@@ -49,7 +50,7 @@ class TestLabel:
         response = self.rest_client.request("post",f"{url_trello}/labels", body=body_project)
         self.validate.validate_response(response, "labels", "create_label")
 
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_update_label(self, create_label, log_test_name):
         """
             test update a label from a board
@@ -62,7 +63,7 @@ class TestLabel:
         response = self.rest_client.request("put",f"{url_trello}/labels/{create_label}", body=body_project)
         self.validate.validate_response(response, "labels", "update_label")
 
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_delete_label(self, create_label, log_test_name):
         """
             test delete a label from a board

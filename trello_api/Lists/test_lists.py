@@ -19,7 +19,7 @@ class Testlist:
         cls.validate = ValidateResponse()
         cls.rest_client = RestClient()
 
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_get_all_lists(self, create_board, log_test_name):
         """
         test get lists from a board
@@ -28,6 +28,7 @@ class Testlist:
         response = self.rest_client.request("get", self.url_trello_lists)
         self.validate.validate_response(response, "lists", "get_all_lists")
 
+    @pytest.mark.acceptance
     @pytest.mark.sanity
     def test_get_list(self, create_list, log_test_name):
         """
@@ -37,7 +38,7 @@ class Testlist:
         response = self.rest_client.request("get", self.url_trello_lists)
         self.validate.validate_response(response, "lists", "get_list")
 
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_create_list(self, create_board, log_test_name):
         """
         test create a specific list from a board
@@ -48,7 +49,7 @@ class Testlist:
         response = self.rest_client.request("post", f"{url_trello}/lists", body=body_project)
         self.validate.validate_response(response, "lists", "create_list")
 
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_update_list(self, create_list, log_test_name):
         """
             test update a list from a board

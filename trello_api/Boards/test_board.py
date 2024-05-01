@@ -31,6 +31,7 @@ class TestBoard:
         self.validate.validate_response(response, "boards", "get_all_boards")
 
     @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_get_board(self, create_board, log_test_name):
         """
         test get a board
@@ -41,7 +42,7 @@ class TestBoard:
             self.board_list.append(response["body"]["id"])
         self.validate.validate_response(response, "boards", "get_board")
 
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_update_board(self, create_board, log_test_name):
         """
             test update a board
@@ -53,7 +54,7 @@ class TestBoard:
             self.board_list.append(response["body"]["id"])
         self.validate.validate_response(response, "boards", "update_board")
 
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_create_board(self, log_test_name):
         """
         test create a board
@@ -65,7 +66,7 @@ class TestBoard:
             self.board_list.append(response["body"]["id"])
         self.validate.validate_response(response, "boards", "create_board")
 
-    @pytest.mark.sanity
+    @pytest.mark.acceptance
     def test_delete_board(self, create_board, log_test_name):
         """
             test delete a board
