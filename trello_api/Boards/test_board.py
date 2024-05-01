@@ -43,11 +43,11 @@ class TestBoard:
         self.validate.validate_response(response, "boards", "get_board")
 
     @pytest.mark.acceptance
-    def test_update_board(self, create_board, log_test_name):
+    def test_update_board(self, create_board, main_body, log_test_name):
         """
             test update a board
         """
-        body_project = body_main
+        body_project = main_body
         body_project["name"] = "Updated board"
         response = self.rest_client.request("put", f"{url_trello}/boards/{create_board}", body=body_project)
         if response["status_code"] == 200:
@@ -55,11 +55,11 @@ class TestBoard:
         self.validate.validate_response(response, "boards", "update_board")
 
     @pytest.mark.acceptance
-    def test_create_board(self, log_test_name):
+    def test_create_board(self, main_body, log_test_name):
         """
         test create a board
         """
-        body_project = body_main
+        body_project = main_body
         body_project["name"] = "Board created for Test Create request"
         response = self.rest_client.request("post", f"{url_trello}/boards", body=body_project)
         if response["status_code"] == 200:
@@ -67,16 +67,16 @@ class TestBoard:
         self.validate.validate_response(response, "boards", "create_board")
 
     @pytest.mark.acceptance
-    def test_delete_board(self, create_board, log_test_name):
+    def test_delete_board(self, create_board, main_body, log_test_name):
         """
             test delete a board
         """
         LOGGER.info("Board_id to be deleted: %s", create_board)
-        response = self.rest_client.request("delete", f"{url_trello}/boards/{create_board}", body=body_main)
+        response = self.rest_client.request("delete", f"{url_trello}/boards/{create_board}", body=main_body)
         self.validate.validate_response(response, "boards", "delete_board")
 
     @pytest.mark.functional
-    def test_max_number_boards(self, log_test_name):
+    def test_max_number_boards(self, main_body, log_test_name):
         """
         Test to validate
         """
@@ -85,7 +85,7 @@ class TestBoard:
         num_of_boards = len(response["body"])
         LOGGER.debug("number of boards: %s", num_of_boards)
         for index in range(num_of_boards, 10):
-            body_project = body_main
+            body_project = main_body
             body_project["name"] = "Board created for Max num of Boards test"
             response, _ = self.board.create_board(body=body_project)
             if response["status_code"] == 200:

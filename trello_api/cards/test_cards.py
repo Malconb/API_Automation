@@ -1,6 +1,7 @@
 import logging
 import pytest
 
+from config import config
 from config.config import url_trello, key_trello, token_trello, credentials, body_main
 from helpers.response_validator import ValidateResponse
 from helpers.rest_client import RestClient
@@ -51,40 +52,37 @@ class TestCard:
         self.validate.validate_response(response, "cards", "get_card")
 
     @pytest.mark.acceptance
-    def test_create_card(self, create_list, log_test_name):
+    def test_create_card(self, create_list, main_body, log_test_name):
         """
         test create a Card from a list
         """
-        body_project = body_main
+        body_project = main_body
         body_project["name"] = "Test Create a Card"
         body_project["idList"] = create_list
         response = self.rest_client.request("post", f"{url_trello}/cards", body=body_project)
         self.validate.validate_response(response, "cards", "create_card")
 
     @pytest.mark.acceptance
-    def test_update_card(self, create_card, log_test_name):
+    def test_update_card(self, create_card, main_body, log_test_name):
         """
             test update a card from a Board
         """
-        body_project = {
-            'key': key_trello,
-            'token': token_trello,
-            'name': 'Updated Card'
-        }
+        body_project = main_body
+        body_project["name"] = "Updated Card"
         response = self.rest_client.request("put", f"{url_trello}/cards/{create_card}", body=body_project)
         self.validate.validate_response(response, "cards", "update_card")
 
     @pytest.mark.acceptance
-    def test_delete_card(self, create_card, log_test_name):
+    def test_delete_card(self, create_card, main_body, log_test_name):
         """
             test delete a Card from a board
         """
-        body_project = body_main
+        body_project = main_body
         response = self.rest_client.request("delete", f"{url_trello}/cards/{create_card}", body=body_project)
         self.validate.validate_response(response, "cards", "delete_card")
 
     @pytest.mark.functional
-    def test_card_move_among_lists(self, log_test_name):
+    def test_card_move_among_lists(self, main_body, log_test_name):
         """
             test card is able to move between all lists in a Board
         """
@@ -94,12 +92,11 @@ class TestCard:
         LOGGER.debug("number of lists: %s", num_of_lists)
         list_of_listids = response["body"]
         for index in range(0, num_of_lists):
-            body_moved_card = body_main
+            body_moved_card = main_body
             body_moved_card["idList"] = list_of_listids[index]["id"]
             LOGGER.debug("Moving card to list_id: %s", body_moved_card["idList"])
             response = self.rest_client.request("put", f"{url_trello}/cards/{self.card_id}", body=body_moved_card)
             self.validate.validate_response(response, "cards", "update_card")
-
 
 
     @classmethod

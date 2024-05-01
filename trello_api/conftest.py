@@ -82,6 +82,14 @@ def create_card(create_list):
         card_id = response["body"]["id"]
     return card_id
 
+@pytest.fixture()
+def main_body():
+    body_main = {
+        'key': key_trello,
+        'token': token_trello
+    }
+    return body_main
+
 
 @pytest.fixture()
 def log_test_name(request):

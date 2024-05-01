@@ -1,7 +1,7 @@
 import logging
 import pytest
 
-from config.config import key_trello, token_trello, url_trello, body_main, credentials
+from config.config import url_trello, credentials
 from helpers.response_validator import ValidateResponse
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
@@ -40,34 +40,31 @@ class TestLabel:
         self.validate.validate_response(response, "labels", "get_label")
 
     @pytest.mark.acceptance
-    def test_create_label(self, create_board, log_test_name):
+    def test_create_label(self, create_board, main_body, log_test_name):
         """
         test create a label from a board
         """
-        body_project = body_main
+        body_project = main_body
         body_project["name"] = "Test Create a label"
         body_project["idBoard"] = create_board
         response = self.rest_client.request("post",f"{url_trello}/labels", body=body_project)
         self.validate.validate_response(response, "labels", "create_label")
 
     @pytest.mark.acceptance
-    def test_update_label(self, create_label, log_test_name):
+    def test_update_label(self, create_label, main_body, log_test_name):
         """
             test update a label from a board
         """
-        body_project = {
-            'key': key_trello,
-            'token': token_trello,
-            'name': 'Updated label'
-        }
+        body_project = main_body
+        body_project["name"] = "Updated list"
         response = self.rest_client.request("put",f"{url_trello}/labels/{create_label}", body=body_project)
         self.validate.validate_response(response, "labels", "update_label")
 
     @pytest.mark.acceptance
-    def test_delete_label(self, create_label, log_test_name):
+    def test_delete_label(self, create_label, main_body, log_test_name):
         """
             test delete a label from a board
         """
-        response = self.rest_client.request("delete",f"{url_trello}/labels/{create_label}", body=body_main)
+        response = self.rest_client.request("delete",f"{url_trello}/labels/{create_label}", body=main_body)
         self.validate.validate_response(response, "labels", "delete_label")
 

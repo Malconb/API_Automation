@@ -39,35 +39,32 @@ class Testlist:
         self.validate.validate_response(response, "lists", "get_list")
 
     @pytest.mark.acceptance
-    def test_create_list(self, create_board, log_test_name):
+    def test_create_list(self, create_board, main_body, log_test_name):
         """
         test create a specific list from a board
         """
-        body_project = body_main
+        body_project = main_body
         body_project["name"] = "Test Create a list"
         body_project["idBoard"] = create_board
         response = self.rest_client.request("post", f"{url_trello}/lists", body=body_project)
         self.validate.validate_response(response, "lists", "create_list")
 
     @pytest.mark.acceptance
-    def test_update_list(self, create_list, log_test_name):
+    def test_update_list(self, create_list, main_body, log_test_name):
         """
             test update a list from a board
         """
-        body_project = {
-            'key': key_trello,
-            'token': token_trello,
-            'name': 'Updated list'
-        }
+        body_project = main_body
+        body_project["name"] = "Updated list"
         response = self.rest_client.request("put", f"{url_trello}/lists/{create_list}", body=body_project)
         self.validate.validate_response(response, "lists", "update_list")
 
     @pytest.mark.acceptance
-    def test_delete_list(self, create_list, log_test_name):
+    def test_delete_list(self, create_list, main_body, log_test_name):
         """
             test archive a list from a board
         """
-        body_project = body_main
+        body_project = main_body
         body_project["value"] = "true"
         response = self.rest_client.request("put", f"{url_trello}/lists/{create_list}/closed", body=body_project)
         self.validate.validate_response(response, "lists", "update_list")
