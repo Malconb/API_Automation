@@ -89,12 +89,15 @@ class Testlist:
         }
         response = self.rest_client.request("post", f"{url_trello}/boards", body=body_project)
         LOGGER.debug("New board for test: %s", response["body"]["id"])
+        new_board_id = response["body"]["id"]
         if response["status_code"] == 200:
             self.board_list.append(response["body"]["id"])
 
         body_move["value"] = response["body"]["id"]
         url_move = f"{url_trello}/lists/{create_list}/idBoard"
         response = self.rest_client.request("put", url_move, body=body_move)
+        assert response["body"]["idBoard"] == new_board_id
+        self.validate.validate_response(response, "lists", "update_list")
         LOGGER.debug("List moved to board: %s", response["body"]["idBoard"])
 
     @classmethod
