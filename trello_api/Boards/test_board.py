@@ -12,6 +12,7 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 
 @allure.feature("feature board")
+@allure.suite("Board suite")
 class TestBoard:
     @classmethod
     def setup_class(cls):
@@ -83,10 +84,11 @@ class TestBoard:
         self.validate.validate_response(response, "boards", "delete_board")
 
     @allure.severity("critical")
+    @allure.suite("Functional suite")
     @pytest.mark.functional
     def test_max_number_boards(self, main_body, log_test_name):
         """
-        Test to validate
+        Test to validate max num of Boards allowed
         """
         self.url_trello_board = f"{url_trello}/organizations/{org_id}/boards?{credentials}"
         response = self.rest_client.request("get", self.url_trello_board)

@@ -12,12 +12,13 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 
 @allure.feature("feature card")
+@allure.suite("Card suite")
 class TestCard:
 
     @classmethod
     def setup_class(cls):
         """
-        Setup class for labels
+        Setup class for Cards
         """
         cls.validate = ValidateResponse()
         cls.rest_client = RestClient()
@@ -31,18 +32,18 @@ class TestCard:
         body_project = body_main
         body_project["name"] = "setup class, Create a Card"
         body_project["idList"] = list_id
-        response = cls.rest_client.request("post", f"{url_trello}/cards", body=body_project)
+        response = cls.rest_client.request("post", f"{url_trello}/Cards", body=body_project)
         cls.card_id = response["body"]["id"]
 
     @allure.severity("normal")
     @pytest.mark.acceptance
     def test_get_all_cards(self, log_test_name):
         """
-        test get all cards from a board
+        test get all Cards from a board
         """
-        self.url_trello_cards = f"{url_trello}/boards/{self.board_id}/cards?{credentials}"
+        self.url_trello_cards = f"{url_trello}/boards/{self.board_id}/Cards?{credentials}"
         response = self.rest_client.request("get", self.url_trello_cards)
-        self.validate.validate_response(response, "cards", "get_all_cards")
+        self.validate.validate_response(response, "Cards", "get_all_cards")
 
     @allure.severity("normal")
     @pytest.mark.sanity
@@ -51,9 +52,9 @@ class TestCard:
         """
         test get a specific a list from a board
         """
-        self.url_trello_cards = f"{url_trello}/cards/{create_card}?{credentials}"
+        self.url_trello_cards = f"{url_trello}/Cards/{create_card}?{credentials}"
         response = self.rest_client.request("get", self.url_trello_cards)
-        self.validate.validate_response(response, "cards", "get_card")
+        self.validate.validate_response(response, "Cards", "get_card")
 
     @allure.severity("normal")
     @pytest.mark.acceptance
@@ -64,8 +65,8 @@ class TestCard:
         body_project = main_body
         body_project["name"] = "Test Create a Card"
         body_project["idList"] = create_list
-        response = self.rest_client.request("post", f"{url_trello}/cards", body=body_project)
-        self.validate.validate_response(response, "cards", "create_card")
+        response = self.rest_client.request("post", f"{url_trello}/Cards", body=body_project)
+        self.validate.validate_response(response, "Cards", "create_card")
 
     @allure.severity("normal")
     @pytest.mark.acceptance
@@ -75,8 +76,8 @@ class TestCard:
         """
         body_project = main_body
         body_project["name"] = "Updated Card"
-        response = self.rest_client.request("put", f"{url_trello}/cards/{create_card}", body=body_project)
-        self.validate.validate_response(response, "cards", "update_card")
+        response = self.rest_client.request("put", f"{url_trello}/Cards/{create_card}", body=body_project)
+        self.validate.validate_response(response, "Cards", "update_card")
 
     @allure.severity("normal")
     @pytest.mark.acceptance
@@ -85,10 +86,11 @@ class TestCard:
             test delete a Card from a board
         """
         body_project = main_body
-        response = self.rest_client.request("delete", f"{url_trello}/cards/{create_card}", body=body_project)
-        self.validate.validate_response(response, "cards", "delete_card")
+        response = self.rest_client.request("delete", f"{url_trello}/Cards/{create_card}", body=body_project)
+        self.validate.validate_response(response, "Cards", "delete_card")
 
     @allure.severity("critical")
+    @allure.suite("Functional suite")
     @pytest.mark.functional
     def test_card_move_among_lists(self, main_body, log_test_name):
         """
@@ -103,8 +105,8 @@ class TestCard:
             body_moved_card = main_body
             body_moved_card["idList"] = list_of_listids[index]["id"]
             LOGGER.debug("Moving card to list_id: %s", body_moved_card["idList"])
-            response = self.rest_client.request("put", f"{url_trello}/cards/{self.card_id}", body=body_moved_card)
-            self.validate.validate_response(response, "cards", "update_card")
+            response = self.rest_client.request("put", f"{url_trello}/Cards/{self.card_id}", body=body_moved_card)
+            self.validate.validate_response(response, "Cards", "update_card")
 
     @classmethod
     def teardown_class(cls):

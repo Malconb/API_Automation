@@ -12,12 +12,13 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 
 @allure.feature("feature list")
+@allure.suite("List suite")
 class Testlist:
 
     @classmethod
     def setup_class(cls):
         """
-        Setup class for labels
+        Setup class for lists
         """
         cls.validate = ValidateResponse()
         cls.rest_client = RestClient()
@@ -80,10 +81,11 @@ class Testlist:
         self.validate.validate_response(response, "lists", "update_list")
 
     @allure.severity("critical")
+    @allure.suite("Functional suite")
     @pytest.mark.functional
     def test_move_list_between_boards(self, create_list, main_body, log_test_name):
         """
-            test to validate cards are as archived after list is deleted
+            test to validate Cards are as archived after list is deleted
         """
         body_move = main_body
 
