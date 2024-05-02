@@ -1,5 +1,6 @@
 import logging
 
+import allure
 import pytest
 from entities.board import Board
 from helpers.response_validator import ValidateResponse
@@ -10,6 +11,7 @@ from config.config import url_trello, body_main, credentials, org_id
 LOGGER = get_logger(__name__, logging.DEBUG)
 
 
+@allure.feature("feature board")
 class TestBoard:
     @classmethod
     def setup_class(cls):
@@ -21,6 +23,7 @@ class TestBoard:
         cls.board_list = []
         cls.board = Board()
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_get_all_boards(self, log_test_name):
         """
@@ -30,6 +33,7 @@ class TestBoard:
         response = self.rest_client.request("get", self.url_trello_board)
         self.validate.validate_response(response, "boards", "get_all_boards")
 
+    @allure.severity("normal")
     @pytest.mark.sanity
     @pytest.mark.acceptance
     def test_get_board(self, create_board, log_test_name):
@@ -42,6 +46,7 @@ class TestBoard:
             self.board_list.append(response["body"]["id"])
         self.validate.validate_response(response, "boards", "get_board")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_update_board(self, create_board, main_body, log_test_name):
         """
@@ -54,6 +59,7 @@ class TestBoard:
             self.board_list.append(response["body"]["id"])
         self.validate.validate_response(response, "boards", "update_board")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_create_board(self, main_body, log_test_name):
         """
@@ -66,6 +72,7 @@ class TestBoard:
             self.board_list.append(response["body"]["id"])
         self.validate.validate_response(response, "boards", "create_board")
 
+    @allure.severity ("normal")
     @pytest.mark.acceptance
     def test_delete_board(self, create_board, main_body, log_test_name):
         """
@@ -75,6 +82,7 @@ class TestBoard:
         response = self.rest_client.request("delete", f"{url_trello}/boards/{create_board}", body=main_body)
         self.validate.validate_response(response, "boards", "delete_board")
 
+    @allure.severity("critical")
     @pytest.mark.functional
     def test_max_number_boards(self, main_body, log_test_name):
         """

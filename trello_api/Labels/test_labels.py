@@ -1,4 +1,6 @@
 import logging
+
+import allure
 import pytest
 
 from config.config import url_trello, credentials
@@ -9,6 +11,7 @@ from utils.logger import get_logger
 LOGGER = get_logger(__name__, logging.DEBUG)
 
 
+@allure.feature("feature label")
 class TestLabel:
 
     @classmethod
@@ -20,6 +23,7 @@ class TestLabel:
         cls.rest_client = RestClient()
 
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_get_all_labels(self, create_board, log_test_name):
         """
@@ -29,6 +33,7 @@ class TestLabel:
         response = self.rest_client.request("get",self.url_trello_labels)
         self.validate.validate_response(response, "labels", "get_all_labels")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     @pytest.mark.sanity
     def test_get_label(self, create_label, log_test_name):
@@ -39,6 +44,7 @@ class TestLabel:
         response = self.rest_client.request("get",self.url_trello_labels)
         self.validate.validate_response(response, "labels", "get_label")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_create_label(self, create_board, main_body, log_test_name):
         """
@@ -50,6 +56,7 @@ class TestLabel:
         response = self.rest_client.request("post",f"{url_trello}/labels", body=body_project)
         self.validate.validate_response(response, "labels", "create_label")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_update_label(self, create_label, main_body, log_test_name):
         """
@@ -60,6 +67,7 @@ class TestLabel:
         response = self.rest_client.request("put",f"{url_trello}/labels/{create_label}", body=body_project)
         self.validate.validate_response(response, "labels", "update_label")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_delete_label(self, create_label, main_body, log_test_name):
         """

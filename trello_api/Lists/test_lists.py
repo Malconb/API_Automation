@@ -1,4 +1,6 @@
 import logging
+
+import allure
 import pytest
 
 from config.config import url_trello, key_trello, token_trello, credentials, body_main, org_id
@@ -9,6 +11,7 @@ from utils.logger import get_logger
 LOGGER = get_logger(__name__, logging.DEBUG)
 
 
+@allure.feature("feature list")
 class Testlist:
 
     @classmethod
@@ -20,6 +23,8 @@ class Testlist:
         cls.rest_client = RestClient()
         cls.board_list = []
 
+    @allure.severity("normal")
+    @allure.title("Get all lists")
     @pytest.mark.acceptance
     def test_get_all_lists(self, create_board, log_test_name):
         """
@@ -29,6 +34,7 @@ class Testlist:
         response = self.rest_client.request("get", self.url_trello_lists)
         self.validate.validate_response(response, "lists", "get_all_lists")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     @pytest.mark.sanity
     def test_get_list(self, create_list, log_test_name):
@@ -39,6 +45,7 @@ class Testlist:
         response = self.rest_client.request("get", self.url_trello_lists)
         self.validate.validate_response(response, "lists", "get_list")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_create_list(self, create_board, main_body, log_test_name):
         """
@@ -50,6 +57,7 @@ class Testlist:
         response = self.rest_client.request("post", f"{url_trello}/lists", body=body_project)
         self.validate.validate_response(response, "lists", "create_list")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_update_list(self, create_list, main_body, log_test_name):
         """
@@ -60,6 +68,7 @@ class Testlist:
         response = self.rest_client.request("put", f"{url_trello}/lists/{create_list}", body=body_project)
         self.validate.validate_response(response, "lists", "update_list")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_delete_list(self, create_list, main_body, log_test_name):
         """
@@ -70,6 +79,7 @@ class Testlist:
         response = self.rest_client.request("put", f"{url_trello}/lists/{create_list}/closed", body=body_project)
         self.validate.validate_response(response, "lists", "update_list")
 
+    @allure.severity("critical")
     @pytest.mark.functional
     def test_move_list_between_boards(self, create_list, main_body, log_test_name):
         """

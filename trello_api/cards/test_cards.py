@@ -1,4 +1,6 @@
 import logging
+
+import allure
 import pytest
 
 from config.config import url_trello, credentials, body_main
@@ -9,6 +11,7 @@ from utils.logger import get_logger
 LOGGER = get_logger(__name__, logging.DEBUG)
 
 
+@allure.feature("feature card")
 class TestCard:
 
     @classmethod
@@ -31,6 +34,7 @@ class TestCard:
         response = cls.rest_client.request("post", f"{url_trello}/cards", body=body_project)
         cls.card_id = response["body"]["id"]
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_get_all_cards(self, log_test_name):
         """
@@ -40,6 +44,7 @@ class TestCard:
         response = self.rest_client.request("get", self.url_trello_cards)
         self.validate.validate_response(response, "cards", "get_all_cards")
 
+    @allure.severity("normal")
     @pytest.mark.sanity
     @pytest.mark.acceptance
     def test_get_card(self, create_card, log_test_name):
@@ -50,6 +55,7 @@ class TestCard:
         response = self.rest_client.request("get", self.url_trello_cards)
         self.validate.validate_response(response, "cards", "get_card")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_create_card(self, create_list, main_body, log_test_name):
         """
@@ -61,6 +67,7 @@ class TestCard:
         response = self.rest_client.request("post", f"{url_trello}/cards", body=body_project)
         self.validate.validate_response(response, "cards", "create_card")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_update_card(self, create_card, main_body, log_test_name):
         """
@@ -71,6 +78,7 @@ class TestCard:
         response = self.rest_client.request("put", f"{url_trello}/cards/{create_card}", body=body_project)
         self.validate.validate_response(response, "cards", "update_card")
 
+    @allure.severity("normal")
     @pytest.mark.acceptance
     def test_delete_card(self, create_card, main_body, log_test_name):
         """
@@ -80,6 +88,7 @@ class TestCard:
         response = self.rest_client.request("delete", f"{url_trello}/cards/{create_card}", body=body_project)
         self.validate.validate_response(response, "cards", "delete_card")
 
+    @allure.severity("critical")
     @pytest.mark.functional
     def test_card_move_among_lists(self, main_body, log_test_name):
         """
