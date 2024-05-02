@@ -1,8 +1,7 @@
 import logging
 import pytest
 
-from config import config
-from config.config import url_trello, key_trello, token_trello, credentials, body_main
+from config.config import url_trello, credentials, body_main
 from helpers.response_validator import ValidateResponse
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
@@ -97,7 +96,6 @@ class TestCard:
             LOGGER.debug("Moving card to list_id: %s", body_moved_card["idList"])
             response = self.rest_client.request("put", f"{url_trello}/cards/{self.card_id}", body=body_moved_card)
             self.validate.validate_response(response, "cards", "update_card")
-
 
     @classmethod
     def teardown_class(cls):

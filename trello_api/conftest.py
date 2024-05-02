@@ -3,7 +3,6 @@ import pytest
 
 from config.config import key_trello, token_trello, url_trello
 from entities.board import Board
-from entities.list import List
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
 
