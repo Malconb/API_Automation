@@ -43,7 +43,7 @@ class TestCard:
         """
         self.url_trello_cards = f"{url_trello}/boards/{self.board_id}/Cards?{credentials}"
         response = self.rest_client.request("get", self.url_trello_cards)
-        self.validate.validate_response(response, "Cards", "get_all_cards")
+        self.validate.validate_response(response, "cards", "get_all_cards")
 
     @allure.severity("normal")
     @pytest.mark.sanity
@@ -54,7 +54,7 @@ class TestCard:
         """
         self.url_trello_cards = f"{url_trello}/Cards/{create_card}?{credentials}"
         response = self.rest_client.request("get", self.url_trello_cards)
-        self.validate.validate_response(response, "Cards", "get_card")
+        self.validate.validate_response(response, "cards", "get_card")
 
     @allure.severity("normal")
     @pytest.mark.acceptance
@@ -66,7 +66,7 @@ class TestCard:
         body_project["name"] = "Test Create a Card"
         body_project["idList"] = create_list
         response = self.rest_client.request("post", f"{url_trello}/Cards", body=body_project)
-        self.validate.validate_response(response, "Cards", "create_card")
+        self.validate.validate_response(response, "cards", "create_card")
 
     @allure.severity("normal")
     @pytest.mark.acceptance
@@ -77,7 +77,7 @@ class TestCard:
         body_project = main_body
         body_project["name"] = "Updated Card"
         response = self.rest_client.request("put", f"{url_trello}/Cards/{create_card}", body=body_project)
-        self.validate.validate_response(response, "Cards", "update_card")
+        self.validate.validate_response(response, "cards", "update_card")
 
     @allure.severity("normal")
     @pytest.mark.acceptance
@@ -87,7 +87,7 @@ class TestCard:
         """
         body_project = main_body
         response = self.rest_client.request("delete", f"{url_trello}/Cards/{create_card}", body=body_project)
-        self.validate.validate_response(response, "Cards", "delete_card")
+        self.validate.validate_response(response, "cards", "delete_card")
 
     @allure.severity("critical")
     @allure.suite("Functional suite")
@@ -106,7 +106,7 @@ class TestCard:
             body_moved_card["idList"] = list_of_listids[index]["id"]
             LOGGER.debug("Moving card to list_id: %s", body_moved_card["idList"])
             response = self.rest_client.request("put", f"{url_trello}/Cards/{self.card_id}", body=body_moved_card)
-            self.validate.validate_response(response, "Cards", "update_card")
+            self.validate.validate_response(response, "cards", "update_card")
 
     @classmethod
     def teardown_class(cls):
