@@ -1,3 +1,5 @@
+"""Module Test Lists """
+
 import logging
 
 import allure
@@ -14,12 +16,16 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 @allure.feature("feature label")
 @allure.suite("Label suite")
 class TestLabel:
+    """
+        Class for Label Testing
+    """
 
     @classmethod
     def setup_class(cls):
         """
         Setup class for labels
         """
+        cls.url_trello_labels = None
         cls.validate = ValidateResponse()
         cls.rest_client = RestClient()
 
@@ -76,4 +82,3 @@ class TestLabel:
         """
         response = self.rest_client.request("delete",f"{url_trello}/labels/{create_label}", body=main_body)
         self.validate.validate_response(response, "labels", "delete_label")
-

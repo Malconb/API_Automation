@@ -1,9 +1,11 @@
+"""Module Test Lists """
+
 import logging
 
 import allure
 import pytest
 
-from config.config import url_trello, key_trello, token_trello, credentials, body_main, org_id
+from config.config import url_trello, key_trello, token_trello, credentials, body_main
 from helpers.response_validator import ValidateResponse
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
@@ -14,12 +16,16 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 @allure.feature("feature list")
 @allure.suite("List suite")
 class Testlist:
+    """
+        Class for Test lists
+    """
 
     @classmethod
     def setup_class(cls):
         """
         Setup class for lists
         """
+        cls.url_trello_lists = None
         cls.validate = ValidateResponse()
         cls.rest_client = RestClient()
         cls.board_list = []
@@ -115,10 +121,10 @@ class Testlist:
     @classmethod
     def teardown_class(cls):
         """
-        PyTest teardown class
+        PyTest teardown class for list
         """
         LOGGER.debug("Teardown class for Cleaning created boards")
-        for test_board_id in cls.board_list:
-            response = cls.rest_client.request("delete", f"{url_trello}/boards/{test_board_id}", body=body_main)
+        for list_board_id in cls.board_list:
+            response = cls.rest_client.request("delete", f"{url_trello}/boards/{list_board_id}", body=body_main)
             if response["status_code"] == 200:
-                LOGGER.debug("Deleted board by teardown: %s", test_board_id)
+                LOGGER.debug("Deleted board by teardown: %s", list_board_id)

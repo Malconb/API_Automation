@@ -1,3 +1,5 @@
+"""Module provides functions used for all validations."""
+
 import logging
 import pytest
 
@@ -9,12 +11,15 @@ from utils.logger import get_logger
 LOGGER = get_logger(__name__, logging.DEBUG)
 
 
-@pytest.fixture()
-def create_board():
+@pytest.fixture(name="create_board")
+def create_board_fixture():
+    """
+        fixture create board
+    """
     board_test_id = None
     LOGGER.info("Test Create a Board from conftest")
     board = Board()
-    response, rest_client = board.create_board()
+    response = board.create_board()
     if response["status_code"] == 200:
         board_test_id = response["body"]["id"]
 
@@ -24,12 +29,18 @@ def create_board():
 
 
 def delete_board(board_test_id, board):
+    """
+        fixture delete board
+    """
     LOGGER.debug("yield process for board_id: %s", board_test_id)
     board.delete_board(board_test_id)
 
 
-@pytest.fixture()
-def create_label(create_board):
+@pytest.fixture(name="create_label")
+def create_label_fixture(create_board):
+    """
+        fixture create label
+    """
     label_id = None
     rest_client = RestClient()
     LOGGER.info("Test Create a label for a board from conftest")
@@ -47,8 +58,11 @@ def create_label(create_board):
     return label_id
 
 
-@pytest.fixture()
-def create_list(create_board):
+@pytest.fixture(name="create_list")
+def create_list_fixture(create_board):
+    """
+        fixture create list
+    """
     list_id = None
     rest_client = RestClient()
     LOGGER.info("Test Create a list for a board from conftest")
@@ -64,8 +78,11 @@ def create_list(create_board):
         list_id = response["body"]["id"]
     return list_id
 
-@pytest.fixture()
-def create_card(create_list):
+@pytest.fixture(name="create_card")
+def create_card_fixture(create_list):
+    """
+        fixture create card
+    """
     card_id = None
     rest_client = RestClient()
     LOGGER.info("Test Create a Card for a list from conftest")
@@ -83,6 +100,9 @@ def create_card(create_list):
 
 @pytest.fixture()
 def main_body():
+    """
+        fixture body for credentials
+    """
     body_main = {
         'key': key_trello,
         'token': token_trello
@@ -92,6 +112,9 @@ def main_body():
 
 @pytest.fixture()
 def log_test_name(request):
+    """
+    fixture for Logger
+    """
     LOGGER.info("Test '%s' STARTED", request.node.name)
 
     def fin():

@@ -1,3 +1,5 @@
+""" Module for Board test """
+
 import logging
 
 import allure
@@ -14,11 +16,15 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 @allure.feature("feature board")
 @allure.suite("Board suite")
 class TestBoard:
+    """
+        Class for Board testing
+    """
     @classmethod
     def setup_class(cls):
         """
         Setup class for boards
         """
+        cls.url_trello_board = None
         cls.rest_client = RestClient()
         cls.validate = ValidateResponse()
         cls.board_list = []
@@ -97,12 +103,13 @@ class TestBoard:
         for index in range(num_of_boards, 10):
             body_project = main_body
             body_project["name"] = "Board created for Max num of Boards test"
-            response, _ = self.board.create_board(body=body_project)
+            response = self.board.create_board(body=body_project)
+            LOGGER.debug("Board num: %s", index)
             if response["status_code"] == 200:
                 self.board_list.append(response["body"]["id"])
 
         # Try for exceeded board
-        response, _ = self.board.create_board()
+        response = self.board.create_board()
         if response["status_code"] == 200:
             self.board_list.append(response["body"]["id"])
         self.validate.validate_response(response, "boards", "max_number_boards")

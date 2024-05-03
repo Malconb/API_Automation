@@ -7,10 +7,17 @@ pipeline {
               sh 'python3 --version'
             }
         }
-        stage('Run Python Scripts') {
+        stage('Run Requirements & Pylint') {
             steps {
                 withPythonEnv('python3') {
                     sh 'pip install -r requirements.txt'
+                    sh 'python3 -m pylint trello_api/'
+                }
+            }
+        }
+        stage('Run Python Scripts') {
+            steps {
+                withPythonEnv('python3') {
                     sh 'python3 -m pytest trello_api/ -v -s --alluredir reports/allure/'
                 }
             }

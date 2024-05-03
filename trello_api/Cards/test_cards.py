@@ -1,3 +1,5 @@
+"""Module Test Cards """
+
 import logging
 
 import allure
@@ -14,7 +16,9 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 @allure.feature("feature card")
 @allure.suite("Card suite")
 class TestCard:
-
+    """
+        class for Test Cards
+    """
     @classmethod
     def setup_class(cls):
         """
@@ -22,6 +26,8 @@ class TestCard:
         """
         cls.validate = ValidateResponse()
         cls.rest_client = RestClient()
+        cls.url_trello_cards = None
+        cls.url_trello_lists = None
         body_project = body_main
         body_project["name"] = "Board created for Card testing"
         response = cls.rest_client.request("post", f"{url_trello}/boards", body=body_project)

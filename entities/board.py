@@ -22,7 +22,7 @@ class Board:
             body_project["name"] = "Board created from Entity"
         response = self.rest_client.request("post", f"{self.url_trello_boards}", body=body_project)
 
-        return response, self.rest_client
+        return response
 
     def delete_board(self, board_test_id):
 
