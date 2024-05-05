@@ -1,9 +1,33 @@
 import logging
 
+from entities.board import Board
 from utils.logger import get_logger
 from behave import given, then, when
 
 LOGGER = get_logger(__name__, logging.DEBUG)
+
+
+@given(u'a valid ID for "{endpoint}" object')
+def step_impl(context, endpoint):
+    """
+    Steps to call get endpoint
+    :param endpoint:
+    """
+    LOGGER.debug(f"STEP: a valid ID for '{endpoint}' object")
+    match endpoint:
+        case "board":
+            context.valid_id = context.new_board_id
+
+        case "list":
+            context.valid_id = context.new_list_id
+
+        case "label":
+            context.valid_id = context.new_label_id
+
+        case "card":
+            context.valid_id = context.new_card_id
+
+    LOGGER.debug("new value: %s", context.valid_id)
 
 
 @when(u'I call to "{endpoint}" endpoint using "{method_name}" option and with parameters')
@@ -15,35 +39,33 @@ def step_impl(context, endpoint, method_name):
     :param method_name:
     """
     LOGGER.debug(f"STEP: When I call to '{endpoint}' endpoint using '{method_name}' option and with parameters")
-    context.url_trello_board = f"{context.url_trello}/organizations/{context.org_id}/boards?{context.credentials}"
+    if endpoint == "boards":
+        context.url_trello_board = f"{context.url_trello}/organizations/{context.org_id}/boards?{context.credentials}"
+    else:
+        context.url_trello_board = f"{context.url_trello}/boards/{context.new_board_id}/{endpoint}?{context.credentials}"
     context.response = context.rest_client.request("get", context.url_trello_board)
     context.endpoint = endpoint
     context.method_name = method_name
 
-
-@when(u'I call to "Boards" endpoint using "GET" option')
+    
+@when(u'I call to "{endpoint}" endpoint using "{method_name}" option for provided ID')
 def step_impl(context, endpoint, method_name):
+    """
+    Steps to call get endpoint
+    :param context:
+    :param endpoint:
+    :param method_name:
+    """
     LOGGER.debug(f"STEP: When I call to '{endpoint}' endpoint using '{method_name}' option and with parameters")
-    context.url_trello_board = f"{context.url_trello}/boards/{create_board}?{credentials}"
-    response = context.rest_client.request("get", context.url_trello_board)
-    if response["status_code"] == 200:
-        context.board_list.append(response["body"]["id"])
-    context.validate.validate_response(response, "boards", "get_board")
+    context.url_trello_get = f"{context.url_trello}/{endpoint}/{context.valid_id}?{context.credentials}"
+    context.response = context.rest_client.request("get", context.url_trello_get)
+    context.endpoint = endpoint
 
 
-@when(u'I call to "{endpoint}" endpoint using "{method_name}" option and with parameters test')
-def step_impl(context, endpoint, method_name):
-    LOGGER.debug(f"STEP: When I call to '{endpoint}' endpoint using '{method_name}' option and with parameters")
-    context.response = context.rest_client.request("post", f"{context.url_trello}/boards", body=context.body_project)
-    if context.response["status_code"] == 200:
-        context.board_list.append(context.response["body"]["id"])
-    context.validate.validate_response(context.response, "boards", "create_board")
-
-
-@then(u'I receive the response to validate')
-def step_impl(context):
+@then(u'I receive the response to validate with "{json_file}" file')
+def step_impl(context, json_file):
     LOGGER.debug(u'STEP: Then I receive the response to validate')
-    context.validate.validate_response(context.response, "boards", "get_all_boards")
+    context.validate.validate_response(context.response, context.endpoint, json_file)
 
 
 @then(u'I validated the status code is {status_code:d}')
