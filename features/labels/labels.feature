@@ -40,3 +40,13 @@ Feature: Labels
     When I call to "labels" endpoint using "post" option for provided ID
     Then I receive the response to validate with "create_label" file
     And I validated the status code is 200
+
+  @label_id
+  @acceptance @sanity @boards-delete
+  Scenario: Verify that delete label endpoint deletes a label
+    As user, I want to delete a label on Trello
+
+    Given a valid ID for "Label" object
+    When I call to "labels" endpoint using "delete" option for provided ID
+    Then I receive the response to validate with "delete_label" file
+    And I validated the status code is 200

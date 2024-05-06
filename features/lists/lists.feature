@@ -39,3 +39,13 @@ Feature: Lists
     When I call to "lists" endpoint using "post" option for provided ID
     Then I receive the response to validate with "create_list" file
     And I validated the status code is 200
+
+  @list_id
+  @acceptance @sanity @boards-delete
+  Scenario: Verify that delete label endpoint deletes a list
+    As user, I want to delete a list on Trello
+
+    Given a valid ID for "List" object
+    When I call to "lists" endpoint using "delete" option for provided ID
+    Then I receive the response to validate with "delete_list" file
+    And I validated the status code is 200

@@ -32,10 +32,20 @@ Feature: Lists
 
   @list_id
   @acceptance @sanity @boards-post
-  Scenario: Verify that create board endpoint return a created board
+  Scenario: Verify that create board endpoint return a created card
     As user, I want to create a card on Trello
 
     Given a valid ID for "List" object
     When I call to "cards" endpoint using "post" option for provided ID
     Then I receive the response to validate with "create_card" file
+    And I validated the status code is 200
+
+  @card_id
+  @acceptance @sanity @boards-delete
+  Scenario: Verify that delete card endpoint deletes a card
+    As user, I want to delete a card on Trello
+
+    Given a valid ID for "Card" object
+    When I call to "cards" endpoint using "delete" option for provided ID
+    Then I receive the response to validate with "delete_card" file
     And I validated the status code is 200

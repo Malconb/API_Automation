@@ -73,8 +73,6 @@ def step_impl(context, endpoints, method_name):
         query[f"id{context.endpoint}"] = context.valid_id
         context.body_request = query
         context.url_trello_call = f"{context.url_trello}/{endpoints}/{context.valid_id}"
-        LOGGER.debug("body to use is: %s", context.body_request)
-        LOGGER.debug("url to use is: %s", context.url_trello_call)
         context.response = context.rest_client.request(method_name, context.url_trello_call, body=context.body_request)
 
     elif method_name == "post":
@@ -83,14 +81,24 @@ def step_impl(context, endpoints, method_name):
         query[f"id{context.endpoint}"] = context.valid_id
         context.body_request = query
         context.url_trello_call = f"{context.url_trello}/{endpoints}"
-        LOGGER.debug("body to use is: %s", context.body_request)
-        LOGGER.debug("url to use is: %s", context.url_trello_call)
-        LOGGER.debug("method to use is: %s", method_name)
         context.response = context.rest_client.request(method_name, context.url_trello_call, body=context.body_request)
         if endpoints == "boards":
             context.new_board_id = context.response["body"]["id"]
             context.board_list.append(context.new_board_id)
-        
+    
+    elif method_name == "delete":
+        query = context.body_main
+        context.url_trello_call = f"{context.url_trello}/{endpoints}/{context.valid_id}"
+        if endpoints == "lists":
+            query["value"] = "true"
+            context.url_trello_call = f"{context.url_trello}/{endpoints}/{context.valid_id}/closed"
+            method_name = "put"
+        context.body_request = query
+        LOGGER.debug("body to use is: %s", context.body_request)
+        LOGGER.debug("url to use is: %s", context.url_trello_call)
+        LOGGER.debug("method to use is: %s", method_name)
+        context.response = context.rest_client.request(method_name, context.url_trello_call, body=context.body_request)
+
     context.endpoints = endpoints
 
 

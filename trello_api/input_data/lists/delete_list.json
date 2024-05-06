@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "/labels"
+  },
+  "response": {
+    "body":
+    {
+      "id": "66195ce44a7605e7db35e85d",
+      "name": "Updated Test list",
+      "closed": "False",
+      "color": "None",
+      "idBoard": "660a22a04497144c6200e487",
+      "pos": 128
+    }
+  },
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "status_code": 200
+}
