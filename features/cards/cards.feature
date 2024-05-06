@@ -15,7 +15,7 @@ Feature: Lists
   Scenario: Verify that get card endpoint return a card
     As user, I want to get an specific card on Trello
 
-    Given a valid ID for "card" object
+    Given a valid ID for "Card" object
     When I call to "cards" endpoint using "get" option for provided ID
     Then I receive the response to validate with "get_card" file
     And I validated the status code is 200
@@ -25,7 +25,17 @@ Feature: Lists
   Scenario: Verify that update card endpoint return an updated card
     As user, I want to update an specific card on Trello
 
-    Given a valid ID for "card" object
+    Given a valid ID for "Card" object
     When I call to "cards" endpoint using "put" option for provided ID
-    Then I receive the response to validate with "get_card" file
+    Then I receive the response to validate with "update_card" file
+    And I validated the status code is 200
+
+  @list_id
+  @acceptance @sanity @boards-post
+  Scenario: Verify that create board endpoint return a created board
+    As user, I want to create a card on Trello
+
+    Given a valid ID for "List" object
+    When I call to "cards" endpoint using "post" option for provided ID
+    Then I receive the response to validate with "create_card" file
     And I validated the status code is 200

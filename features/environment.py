@@ -1,10 +1,11 @@
 import logging
 
-from config.config import url_trello, org_id, credentials, body_main
+from config.config import url_trello, org_id, credentials
 from entities.board import Board
 from entities.card import Card
 from entities.label import Label
 from entities.list import List
+from entities.reset_body import Body
 from helpers.response_validator import ValidateResponse
 from helpers.rest_client import RestClient
 from utils.logger import get_logger
@@ -23,12 +24,12 @@ def before_all(context):
     context.url_trello = url_trello
     context.org_id = org_id
     context.credentials = credentials
-    context.body_main = body_main
 
     context.board = Board()
     context.list = List()
     context.label = Label()
     context.card = Card()
+    context.body = Body()
 
 def before_feature(context, feature):
     """
@@ -44,6 +45,7 @@ def before_scenario(context, scenario):
         :param scenario:
         """
     context.board_list = []
+    context.body_main = context.body.reset_body()
     LOGGER.info("Before scenario")
     if "board_id" in scenario.tags:
         new_board = context.board.create_board()

@@ -15,17 +15,20 @@ def step_impl(context, endpoint):
     """
     LOGGER.debug(f"STEP: a valid ID for '{endpoint}' object")
     match endpoint:
-        case "board":
+        case "Board":
             context.valid_id = context.new_board_id
 
-        case "list":
+        case "List":
             context.valid_id = context.new_list_id
 
-        case "label":
+        case "Label":
             context.valid_id = context.new_label_id
 
-        case "card":
+        case "Card":
             context.valid_id = context.new_card_id
+        
+        case "Organization":
+            context.valid_id = context.org_id
 
     LOGGER.debug("new value: %s", context.valid_id)
     context.endpoint = endpoint
@@ -58,21 +61,35 @@ def step_impl(context, endpoints, method_name):
     :param method_name:
     """
     LOGGER.debug(f"STEP: When I call to '{endpoints}' endpoint using '{method_name}' option and with parameters")
+    query = []
     if method_name == "get":
         context.url_trello_call = f"{context.url_trello}/{endpoints}/{context.valid_id}?{context.credentials}"
         LOGGER.debug("method_name is: %s", method_name)
         context.response = context.rest_client.request(method_name, context.url_trello_call)
         
-    else:
-        LOGGER.debug("else from when i call to...")
+    elif method_name == "put":
         query = context.body_main
-        query["name"] = f"Test Update a {context.endpoint}"
+        query["name"] = f"Testing {method_name} for {context.endpoint} endpoint"
         query[f"id{context.endpoint}"] = context.valid_id
         context.body_request = query
         context.url_trello_call = f"{context.url_trello}/{endpoints}/{context.valid_id}"
-        LOGGER.debug("url to call: %s", context.url_trello_call)
-        LOGGER.debug("body to use: %s", context.body_request)
+        LOGGER.debug("body to use is: %s", context.body_request)
+        LOGGER.debug("url to use is: %s", context.url_trello_call)
         context.response = context.rest_client.request(method_name, context.url_trello_call, body=context.body_request)
+
+    elif method_name == "post":
+        query = context.body_main
+        query["name"] = f"Testing {method_name} for {context.endpoint} endpoint"
+        query[f"id{context.endpoint}"] = context.valid_id
+        context.body_request = query
+        context.url_trello_call = f"{context.url_trello}/{endpoints}"
+        LOGGER.debug("body to use is: %s", context.body_request)
+        LOGGER.debug("url to use is: %s", context.url_trello_call)
+        LOGGER.debug("method to use is: %s", method_name)
+        context.response = context.rest_client.request(method_name, context.url_trello_call, body=context.body_request)
+        if endpoints == "boards":
+            context.new_board_id = context.response["body"]["id"]
+            context.board_list.append(context.new_board_id)
         
     context.endpoints = endpoints
 
