@@ -61,7 +61,7 @@ def before_scenario(context, scenario):
         new_card, context.new_board_id = context.card.create_card()
         context.new_card_id = new_card["body"]["id"]
         context.board_list.append(context.new_board_id)
-        
+    LOGGER.debug("Values cretaed by entity")
 
 
 
