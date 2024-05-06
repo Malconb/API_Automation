@@ -32,7 +32,7 @@ def step_impl(context, endpoint):
 
 
 @when(u'I call to "{endpoints}" endpoint using "{method_name}" option and with parameters')
-def step_impl(context, endpoint, method_name):
+def step_impl(context, endpoints, method_name):
     """
     Steps to call get endpoint
     :param context:
@@ -43,7 +43,7 @@ def step_impl(context, endpoint, method_name):
     if endpoints == "boards":
         context.url_trello_board = f"{context.url_trello}/organizations/{context.org_id}/boards?{context.credentials}"
     else:
-        context.url_trello_board = f"{context.url_trello}/boards/{context.new_board_id}/{endpoint}?{context.credentials}"
+        context.url_trello_board = f"{context.url_trello}/boards/{context.new_board_id}/{endpoints}?{context.credentials}"
     context.response = context.rest_client.request(method_name, context.url_trello_board)
     context.endpoints = endpoints
     context.method_name = method_name
