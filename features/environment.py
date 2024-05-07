@@ -24,6 +24,7 @@ def before_all(context):
     context.url_trello = url_trello
     context.org_id = org_id
     context.credentials = credentials
+    context.resource_list = []
 
     context.board = Board()
     context.list = List()
