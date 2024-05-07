@@ -1,0 +1,20 @@
+by criteria:
+    @acceptance 
+    @sanity
+    @functional
+        @functional-board_limit
+        @functional-card_moving
+        @functional-multiple-labels
+
+by method:
+    @method-get_all
+    @method-get
+    @method-put
+    @method-post
+    @method-delete
+
+by endpoint:
+    @boards
+    @labels
+    @lists
+    @cards

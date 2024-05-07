@@ -15,6 +15,7 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 @allure.feature("feature label")
 @allure.suite("Label suite")
+@pytest.mark.labels
 class TestLabel:
     """
         Class for Label Testing

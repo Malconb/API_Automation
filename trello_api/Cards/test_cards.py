@@ -15,6 +15,7 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 @allure.feature("feature card")
 @allure.suite("Card suite")
+@pytest.mark.cards
 class TestCard:
     """
         class for Test Cards

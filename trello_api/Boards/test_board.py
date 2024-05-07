@@ -15,6 +15,7 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 @allure.feature("feature board")
 @allure.suite("Board suite")
+@pytest.mark.boards
 class TestBoard:
     """
         Class for Board testing

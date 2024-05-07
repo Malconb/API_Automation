@@ -1,0 +1,12 @@
+Markers created for Pytest
+
+By criteria:
+    @pytest.mark.acceptance
+    @pytest.mark.sanity
+    @pytest.mark.functional
+
+by Endpoint:
+    @pytest.mark.boards
+    @pytest.mark.cards
+    @pytest.mark.labels
+    @pytest.mark.lists

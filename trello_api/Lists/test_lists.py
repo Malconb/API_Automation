@@ -15,6 +15,7 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 @allure.feature("feature list")
 @allure.suite("List suite")
+@pytest.mark.lists
 class Testlist:
     """
         Class for Test lists

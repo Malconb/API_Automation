@@ -1,3 +1,4 @@
+"""Setting behave environment"""
 import logging
 
 from config.config import url_trello, org_id, credentials
@@ -31,13 +32,6 @@ def before_all(context):
     context.label = Label()
     context.card = Card()
     context.body = Body()
-
-def before_feature(context, feature):
-    """
-    :param context:
-    :param feature:
-    """
-    LOGGER.info("Before feature")
 
 
 def before_scenario(context, scenario):
@@ -75,21 +69,7 @@ def after_scenario(context, scenario):
         """
     LOGGER.info("after scenario")
     for test_board_id in context.board_list:
-            response = context.rest_client.request("delete", f"{context.url_trello}/boards/{test_board_id}", body=context.body_main)
+            context.url_trello_clean = f"{context.url_trello}/boards/{test_board_id}"
+            response = context.rest_client.request("delete", context.url_trello_clean, body=context.body_main)
             if response["status_code"] == 200:
                 LOGGER.debug("Board deleted after scenario: %s", test_board_id)
-
-
-def after_feature(context, feature):
-    """
-            :param context:
-            :param feature:
-            """
-    LOGGER.info("after feature")
-
-
-def after_all(context):
-    """
-            :param context:
-            """
-    LOGGER.info("after all")
