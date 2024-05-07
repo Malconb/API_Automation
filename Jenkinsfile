@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    parameters {
+        string description: 'Tag to be executed by pytest', name: 'Tag'
+        } 
     stages {
         stage('python version') {
             steps {
@@ -11,7 +13,7 @@ pipeline {
             steps {
                 withPythonEnv('python3') {
                     sh 'pip install -r requirements.txt'
-                    sh 'python3 -m behave'
+                    sh 'python3 -m behave -t' + param.Tag
                 }
             }
         }
