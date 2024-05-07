@@ -12,10 +12,11 @@ pipeline {
         stage('Run Python Scripts') {
             steps {
                 withPythonEnv('python3') {
+                    sh "echo ${params.Tag}"
                     sh 'pip install -r requirements.txt'
                     sh 'python3 -m behave -t '
                 }
-                echo "$(param.Tag)"
+                
             }
         }
         stage('reports') {
