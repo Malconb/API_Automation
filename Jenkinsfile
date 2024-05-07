@@ -14,7 +14,7 @@ pipeline {
                 withPythonEnv('python3') {
                     sh "echo ${params.Tag}"
                     sh 'pip install -r requirements.txt'
-                    sh 'python3 -m behave -t '
+                    sh "python3 -m behave -t ${params.Tag}"
                 }
                 
             }
