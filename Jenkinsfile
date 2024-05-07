@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         string description: 'Tag to be executed by pytest', name: 'Tag'
-        },
+        }
     stages {
         stage('python version') {
             steps {
