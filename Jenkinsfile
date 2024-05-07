@@ -1,5 +1,5 @@
 pipeline {
-    agent any,
+    agent any
     parameters {
         string description: 'Tag to be executed by pytest', name: 'Tag'
         },
