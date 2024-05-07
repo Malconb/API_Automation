@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string description: 'Tag to be executed by pytest, please set like this e.g. "-m @sanity"', name: 'Tag'
+        string description: 'Markers to be executed by pytest, please set like this e.g. "-m sanity", "-m" is mandatory for markers', name: 'Tag'
         }
 
     stages {
