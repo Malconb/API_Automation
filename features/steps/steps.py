@@ -7,6 +7,8 @@ from behave import given, then, when
 LOGGER = get_logger(__name__, logging.DEBUG)
 
 
+#### Steps for basic scenarios: ######
+
 @given(u'a valid ID for "{endpoint}" object')
 def step_impl(context, endpoint):
     """
@@ -116,3 +118,58 @@ def step_impl(context, status_code):
     LOGGER.debug(f"STEP: Then I validated the status code is {status_code}")
     assert context.response["status_code"] == status_code, \
         f"Expected {status_code} but got {context.response['status_code']}"
+
+
+#### Steps for functional scenarios: ###### 
+
+@given(u'current quantity of created boards')
+def step_impl(context):
+    context.url_trello_board = f"{context.url_trello}/organizations/{context.valid_id}/boards?{context.credentials}"
+    context.response = context.rest_client.request("get", context.url_trello_board)
+    context.num_of_boards = len(context.response["body"])
+    LOGGER.debug("There is current boards: %s", context.num_of_boards)
+
+
+@when(u'I created boards until limit provided for free accounts: 10')
+def step_impl(context):
+    for index in range(context.num_of_boards, 10):
+            context.body_project = context.body_main
+            context.body_project["name"] = "Board created for Max num of Boards test"
+            new_board = context.board.create_board(body=context.body_project)
+            context.new_board_id = new_board["body"]["id"]
+            context.board_list.append(new_board["body"]["id"])
+            LOGGER.debug("Board num: %s", index)
+
+    LOGGER.debug("I created boards until limit provided for free accounts: 10")
+
+
+@then(u'I try to create an extra board')
+def step_impl(context):
+        LOGGER.debug("I try to create an extra board")
+        context.body_project["name"] = "Board created for Exceeded Max num of Boards test"
+        new_board = context.board.create_board(body=context.body_project)
+        context.response = new_board
+    
+
+@given(u'compile all available "{endpoints}" on a board')
+def step_impl(context, endpoints):
+    context.url_trello_board = f"{context.url_trello}/boards/{context.new_board_id}/{endpoints}?{context.credentials}"
+    context.response = context.rest_client.request("get", context.url_trello_board)
+    context.num_of_objects = len(context.response["body"])
+    LOGGER.debug(f"Current quantity of {endpoints}: %s", context.num_of_objects)
+    context.list_of_objects = context.response["body"]
+    LOGGER.debug(f"list of {endpoints}: %s", context.num_of_objects)
+    context.endpoints = endpoints
+
+
+@when(u'I move card between all avaiable "{endpoints}"')
+def step_impl(context, endpoints):
+    LOGGER.debug(u'STEP: When I move card between all avaiable lists')
+    for index in range(0, context.num_of_objects):
+            context.body_moved_card = context.body_main
+            context.body_moved_card["idList"] = context.list_of_objects[index]["id"]
+            LOGGER.debug("Moving card to list_id: %s", context.body_moved_card["idList"])
+            context.url_trello_move = f"{context.url_trello}/{context.endpoints}/{context.valid_id}"
+            context.response = context.rest_client.request("put", context.url_trello_move, body=context.body_moved_card)
+            context.endpoints = "cards"
+

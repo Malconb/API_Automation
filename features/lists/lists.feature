@@ -2,7 +2,7 @@
 Feature: Lists
 
   @list_id 
-  @acceptance @sanity @lists-get_all
+  @acceptance @sanity @method-get_all
   Scenario: Verify that get all lists endpoint return all created lists
     As user, I want to get all lists from a board on Trello API
 
@@ -11,7 +11,7 @@ Feature: Lists
     And I validated the status code is 200
 
   @list_id 
-  @acceptance @sanity @boards-get
+  @acceptance @method-get
   Scenario: Verify that get list endpoint return a list
     As user, I want to get an specific list on Trello
 
@@ -21,7 +21,7 @@ Feature: Lists
     And I validated the status code is 200
 
   @list_id 
-  @acceptance @sanity @boards-put
+  @acceptance @method-put
   Scenario: Verify that update list endpoint return an updated list
     As user, I want to update an specific card on Trello
 
@@ -31,7 +31,7 @@ Feature: Lists
     And I validated the status code is 200
 
   @board_id
-  @acceptance @sanity @boards-post
+  @acceptance @method-post
   Scenario: Verify that create board endpoint return a created list
     As user, I want to create a list on Trello
 
@@ -41,7 +41,7 @@ Feature: Lists
     And I validated the status code is 200
 
   @list_id
-  @acceptance @sanity @boards-delete
+  @acceptance @method-delete
   Scenario: Verify that delete label endpoint deletes a list
     As user, I want to delete a list on Trello
 

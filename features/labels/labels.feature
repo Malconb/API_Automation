@@ -2,7 +2,7 @@
 Feature: Labels
 
   @label_id 
-  @acceptance @sanity @labels-get_all
+  @acceptance @sanity @method-get_all
   Scenario: Verify that get all label endpoint return all created labels
     As user, I want to get all labels from a board on Trello API
 
@@ -12,7 +12,7 @@ Feature: Labels
 
 
   @label_id 
-  @acceptance @sanity @boards-get
+  @acceptance  @method-get
   Scenario: Verify that get label endpoint return a label
     As user, I want to get an specific label on Trello
 
@@ -22,7 +22,7 @@ Feature: Labels
     And I validated the status code is 200
 
   @label_id 
-  @acceptance @sanity @boards-put
+  @acceptance @method-put
   Scenario: Verify that update label endpoint return an updated label
     As user, I want to update an specific label on Trello
 
@@ -32,7 +32,7 @@ Feature: Labels
     And I validated the status code is 200
 
   @board_id
-  @acceptance @sanity @boards-post
+  @acceptance @method-post
   Scenario: Verify that create board endpoint return a created label
     As user, I want to create a label on Trello
 
@@ -42,7 +42,7 @@ Feature: Labels
     And I validated the status code is 200
 
   @label_id
-  @acceptance @sanity @boards-delete
+  @acceptance @method-delete
   Scenario: Verify that delete label endpoint deletes a label
     As user, I want to delete a label on Trello
 
