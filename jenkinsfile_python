@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string description: 'Tag to be executed by pytest', name: 'Tag'
+        string description: 'Tag to be executed by pytest, please set like this e.g. "-m @sanity"', name: 'Tag'
         }
 
     stages {
@@ -21,7 +21,7 @@ pipeline {
         stage('Run Python Scripts') {
             steps {
                 withPythonEnv('python3') {
-                    sh "python3 -m pytest trello_api/ -m ${params.Tag} -v -s --alluredir reports/allure/"
+                    sh "python3 -m pytest trello_api/ ${params.Tag} -v -s --alluredir reports/allure/"
                 }
             }
         }
