@@ -13,8 +13,9 @@ pipeline {
             steps {
                 withPythonEnv('python3') {
                     sh 'pip install -r requirements.txt'
-                    sh 'python3 -m behave -t ' + $(param.Tag)
+                    sh 'python3 -m behave -t '
                 }
+                echo "$(param.Tag)"
             }
         }
         stage('reports') {
